@@ -1,0 +1,9 @@
+node_modules
+*-lock.json
+*.lock
+Content/Images
+Content/Shapes
+Content/Songs
+Content/Videos
+Content/Datas/*.json
+Content/Datas/Maps
