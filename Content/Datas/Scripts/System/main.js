@@ -18,38 +18,25 @@
 //
 // -------------------------------------------------------
 
-
-const cons = require('electron').remote.getGlobal('console')
-
 /** Initialize the game stack and datas.
 */
-function initialize()
+RPM.initialize = function()
 {
-    $settings = new Settings();
-    $gameStack = new GameStack();
+    RPM.songsManager = new SongsManager();
+    RPM.settings = new Settings();
+    RPM.gameStack = new GameStack();
 }
 
 // -------------------------------------------------------
 
 /** Initialize the openGL stuff.
-*   @param {Canvas} canvas The 3D canvas.
 */
-function initializeGL(canvas)
+RPM.initializeGL = function()
 {
     // Create the renderer
-    if ($DESKTOP) {
-        $renderer = new THREE.Canvas3DRenderer({
-            canvas: canvas,
-            devicePixelRatio: canvas.devicePixelRatio,
-            antialias: true
-        });
-    }
-    else{
-        $renderer = new THREE.WebGLRenderer();
-        $renderer.autoClear = false;
-    }
-
-    $renderer.setSize($canvasWidth, $canvasHeight);
+    RPM.renderer = new THREE.WebGLRenderer();
+    RPM.renderer.autoClear = false;
+    RPM.renderer.setSize(RPM.canvasWidth, RPM.canvasHeight);
 }
 
 // -------------------------------------------------------
@@ -57,12 +44,12 @@ function initializeGL(canvas)
 /** Set the camera aspect while resizing the window.
 *   @param {Canvas} canvas The 3D canvas.
 */
-function resizeGL(canvas)
+RPM.resizeGL = function(canvas)
 {
-    $renderer.setSize($canvasWidth, $canvasHeight);
-    var camera = $gameStack.camera;
+    RPM.renderer.setSize(RPM.canvasWidth, RPM.canvasHeight);
+    var camera = RPM.gameStack.camera;
     if (typeof camera !== 'undefined'){
-        camera.threeCamera.aspect = $canvasWidth / $canvasHeight;
+        camera.threeCamera.aspect = RPM.canvasWidth / RPM.canvasHeight;
         camera.threeCamera.updateProjectionMatrix();
     }
 }
@@ -71,25 +58,25 @@ function resizeGL(canvas)
 
 /** Update the current stack.
 */
-function update()
+RPM.update = function()
 {
     // Update songs manager
-    $songsManager.update();
+    RPM.songsManager.update();
 
     // Repeat keypress as long as not blocking
     var continuePressed = true;
-    for (var i = 0, l = $keysPressed.length; i < l; i++){
-        continuePressed = onKeyPressedRepeat($keysPressed[i]);
+    for (var i = 0, l = RPM.keysPressed.length; i < l; i++){
+        continuePressed = onKeyPressedRepeat(RPM.keysPressed[i]);
         if (!continuePressed)
             break;
     }
 
     // Update the top of the stack
-    $gameStack.update();
+    RPM.gameStack.update();
 
-    $elapsedTime = new Date().getTime() - $lastUpdateTime;
-    $averageElapsedTime = ($averageElapsedTime + $elapsedTime) / 2;
-    $lastUpdateTime = new Date().getTime();
+    RPM.elapsedTime = new Date().getTime() - RPM.lastUpdateTime;
+    RPM.averageElapsedTime = (RPM.averageElapsedTime + RPM.elapsedTime) / 2;
+    RPM.lastUpdateTime = new Date().getTime();
 }
 
 // -------------------------------------------------------
@@ -97,9 +84,9 @@ function update()
 /** First key press handle for the current stack.
 *   @param {number} key The key ID pressed.
 */
-function onKeyPressed(key)
+RPM.onKeyPressed = function(key)
 {
-    $gameStack.onKeyPressed(key);
+    RPM.gameStack.onKeyPressed(key);
 }
 
 // -------------------------------------------------------
@@ -107,9 +94,9 @@ function onKeyPressed(key)
 /** First key release handle for the current stack.
 *   @param {number} key The key ID released.
 */
-function onKeyReleased(key)
+RPM.onKeyReleased = function(key)
 {
-    $gameStack.onKeyReleased(key);
+    RPM.gameStack.onKeyReleased(key);
 }
 
 // -------------------------------------------------------
@@ -118,9 +105,9 @@ function onKeyReleased(key)
 *   @param {number} key The key ID pressed.
 *   @returns {boolean} false if the other keys are blocked after it.
 */
-function onKeyPressedRepeat(key)
+RPM.onKeyPressedRepeat = function(key)
 {
-    return $gameStack.onKeyPressedRepeat(key);
+    return RPM.gameStack.onKeyPressedRepeat(key);
 }
 
 // -------------------------------------------------------
@@ -130,9 +117,9 @@ function onKeyPressedRepeat(key)
 *   @param {number} key The key ID pressed.
 *   @returns {boolean} false if the other keys are blocked after it.
 */
-function onKeyPressedAndRepeat(key)
+RPM.onKeyPressedAndRepeat = function(key)
 {
-    return $gameStack.onKeyPressedAndRepeat(key);
+    return RPM.gameStack.onKeyPressedAndRepeat(key);
 }
 
 // -------------------------------------------------------
@@ -140,9 +127,9 @@ function onKeyPressedAndRepeat(key)
 /** Draw the 3D for the current stack.
 *   @param {Canvas} canvas The 3D canvas.
 */
-function draw3D(canvas)
+RPM.draw3D = function(canvas)
 {
-    $gameStack.draw3D(canvas);
+    RPM.gameStack.draw3D(canvas);
 }
 
 // -------------------------------------------------------
@@ -150,27 +137,30 @@ function draw3D(canvas)
 /** Draw HUD for the current stack.
 *   @param {Canvas} canvas The HUD canvas.
 */
-function drawHUD(loading)
+RPM.drawHUD = function(loading)
 {
 
-    if ($requestPaintHUD)
+    if (RPM.requestPaintHUD)
     {
-        $requestPaintHUD = false;
-        $context.clearRect(0, 0, $canvasWidth, $canvasHeight);
-        $context.lineWidth = 1;
-        $context.webkitImageSmoothingEnabled = false;
-        $context.imageSmoothingEnabled = false;
+        RPM.requestPaintHUD = false;
+        RPM.context.clearRect(0, 0, RPM.canvasWidth, RPM.canvasHeight);
+        RPM.context.lineWidth = 1;
+        RPM.context.webkitImageSmoothingEnabled = false;
+        RPM.context.imageSmoothingEnabled = false;
         if (loading) {
-            if ($loadingScene) {
-                $loadingScene.drawHUD();
+            if (RPM.loadingScene) {
+                RPM.loadingScene.drawHUD();
             }
         }
         else {
-            $gameStack.drawHUD();
+            RPM.gameStack.drawHUD();
         }
     }
-    $gameStack.displayingContent = !loading;
+    RPM.gameStack.displayingContent = !loading;
 }
 
 // Start!
-//this.initialize();
+RPM.initializeGL();
+RPM.initialize();
+
+//requestAnimationFrame( RPM.update );

@@ -21,6 +21,7 @@
 function SongsManager(musicPlayer, backgroundPlayer, musicEffects,
                       soundsPlayers)
 {
+    /*
     this.musics = musicPlayer;
     this.backgroundSounds = backgroundPlayer;
     this.musicEffects = musicEffects;
@@ -44,7 +45,7 @@ function SongsManager(musicPlayer, backgroundPlayer, musicEffects,
     this.ends[SongKind.BackgroundSound] = null;
     this.ends[SongKind.MusicEffect] = null;
 
-    this.progressionMusic = null;
+    this.progressionMusic = null;*/
 }
 
 SongsManager.prototype = {
@@ -54,6 +55,7 @@ SongsManager.prototype = {
     *   @returns {Audio}
     */
     getPlayer: function(kind) {
+        /*
         switch (kind) {
         case SongKind.Music:
             return this.musics;
@@ -63,7 +65,8 @@ SongsManager.prototype = {
             return this.musicEffects;
         default:
             return null;
-        }
+        }*/
+        return null;
     },
 
     // -------------------------------------------------------
@@ -73,6 +76,7 @@ SongsManager.prototype = {
     *   @param {SystemSong[]} songs The list of songs to add.
     */
     addSongs: function(kind, songs) {
+        /*
         var player = this.getPlayer(kind);
         if (!player)
             return;
@@ -83,7 +87,7 @@ SongsManager.prototype = {
             song = songs[i];
             paths[song.id === -1 ? 0 : song.id] = song.getPath(kind)[0];
         }
-        player.playlist.addItems(paths);
+        player.playlist.addItems(paths);*/
     },
 
     // -------------------------------------------------------
@@ -93,6 +97,7 @@ SongsManager.prototype = {
     *   @param {number} id The id of the song.
     */
     playSong: function(kind, id, volume, start, end) {
+        /*
         if (id < 1) {
             switch (kind) {
             case SongKind.Music:
@@ -126,7 +131,7 @@ SongsManager.prototype = {
             player.playlist.currentIndex = id;
             player.seek(this.starts[kind]);
             player.play();
-        }
+        }*/
     },
 
     // -------------------------------------------------------
@@ -140,6 +145,7 @@ SongsManager.prototype = {
     *   @returns {boolean} Indicates if the song is stopped.
     */
     stopSong: function(kind, time, seconds, pause) {
+        /*
         var player = this.getPlayer(kind);
         if (!player)
             return true;
@@ -161,7 +167,8 @@ SongsManager.prototype = {
             player.volume = (this.volumes[kind] * (100 - ((ellapsedTime /
                 (seconds * 1000)) * 100))) / 100;
             return false;
-        }
+        }*/
+        return false;
     },
 
     // -------------------------------------------------------
@@ -174,6 +181,7 @@ SongsManager.prototype = {
     *   @returns {boolean} Indicates if the song is played with all volume.
     */
     unpauseSong: function(kind, time, seconds) {
+        /*
         var player = this.getPlayer(kind);
         if (!player)
             return true;
@@ -189,7 +197,8 @@ SongsManager.prototype = {
             player.volume = this.volumes[kind] * (ellapsedTime /
                 (seconds * 1000));
             return false;
-        }
+        }*/
+        return false;
     },
 
     // -------------------------------------------------------
@@ -199,6 +208,7 @@ SongsManager.prototype = {
     *   @param {number} volume The volume of the sound.
     */
     playSound: function(id, volume) {
+        /*
         var song;
         if (id === -1)
             return;
@@ -206,7 +216,7 @@ SongsManager.prototype = {
         var player = this.sounds[this.soundIndex++];
         player.stop();
         player.volume = volume;
-        song = $datasGame.songs.list[SongKind.Sound][id];
+        song = RPM.datasGame.songs.list[SongKind.Sound][id];
         if (song)
         {
             player.source = song.getPath(SongKind.Sound)[0];
@@ -214,7 +224,7 @@ SongsManager.prototype = {
         }
         if (this.soundIndex === 10) {
             this.soundIndex = 0;
-        }
+        }*/
     },
 
     // -------------------------------------------------------
@@ -224,6 +234,7 @@ SongsManager.prototype = {
     *   @param {number} volume The volume of the sound.
     */
     playMusicEffect: function(id, volume, currentState) {
+        /*
         if (id === -1 || currentState.end)
             return true;
 
@@ -253,7 +264,7 @@ SongsManager.prototype = {
                 return true;
             }
         }
-
+*/
         return false;
     },
 
@@ -262,12 +273,13 @@ SongsManager.prototype = {
     /** Update songs positions or other stuffs.
     */
     updateByKind: function(kind) {
+        /*
         var player = this.getPlayer(kind);
         if (player.playbackState === Audio.PlayingState) {
             if (this.ends[kind] && player.position >= this.ends[kind]) {
                 player.seek(this.starts[kind]);
             }
-        }
+        }*/
     },
 
     // -------------------------------------------------------
@@ -275,32 +287,39 @@ SongsManager.prototype = {
     /** Update songs positions or other stuffs.
     */
     update: function() {
+        /*
         this.updateByKind(SongKind.Music);
         this.updateByKind(SongKind.BackgroundSound);
         this.updateProgressionMusic();
+        */
     },
 
     // -------------------------------------------------------
 
     stopMusic: function(time) {
+        /*
         this.isMusicNone = true;
         this.stopSong(SongKind.Music, time, 0, false);
         this.initializeProgressionMusic(this.musics.volume, 0, 0, time);
+        */
     },
 
     // -------------------------------------------------------
 
     initializeProgressionMusic: function(i, f, equation, end) {
+        /*
         this.progressionMusic = SystemProgressionTable.createProgression(i, f,
             equation);
         this.progressionMusicTime = new Date().getTime();
         this.progressionMusicEnd = end;
         this.isProgressionMusicEnd = false;
+        */
     },
 
     // -------------------------------------------------------
 
     updateProgressionMusic: function() {
+        /*
         if (!this.isProgressionMusicEnd) {
             var tick = new Date().getTime() - this.progressionMusicTime;
             if (tick >= this.progressionMusicEnd) {
@@ -314,6 +333,6 @@ SongsManager.prototype = {
             } else if (!this.isMusicNone) {
                 this.musics.play();
             }
-        }
+        }*/
     }
 }

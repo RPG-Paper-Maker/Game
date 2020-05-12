@@ -10,6 +10,8 @@
 */
 
 const ipc = require('electron').ipcRenderer;
+const console = require('electron').remote.getGlobal('console')
+const nativeImage = require('electron').nativeImage
 
 window.onerror = function (msg, url, line, column, error)
 {
@@ -28,8 +30,19 @@ function Platform()
 {
 
 }
-
+Platform.context = document.getElementById('hud').getContext('2d');
+Platform.canvas3D = document.getElementById('container');
 Platform.DESKTOP = true;
+
+Platform.setWindowTitle = function(title)
+{
+    ipc.send('change-window-title', title);
+}
+
+Platform.setWindowSize = function(w, h)
+{
+    ipc.send('change-window-size', w, h);
+}
 
 Platform.quit = function()
 {

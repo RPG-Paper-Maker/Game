@@ -37,6 +37,13 @@ function createWindow () {
         }
         dialog.showMessageBoxSync({ title: 'Error', type: 'error', message: str });
         window.close()
+    });
+    ipc.on('change-window-title', function(event, title) {
+        window.setTitle(title);
+    })
+    ipc.on('change-window-size', function(event, w, h) {
+        window.setSize(w, h);
+        window.center();
     })
     window.loadFile('index.html');
     window.removeMenu();
@@ -50,6 +57,9 @@ app.on('window-all-closed', () => {
         app.quit();
     }
 })
+
+// Avoid warning deprecated default value
+app.allowRendererProcessReuse = false;
 
 // Mac OS open new window if clicking on dock again
 app.on('activate', () => {

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>Game</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta http-equiv="Content-Security-Policy" content="default-src 'self'">
 		<style>
 			body {
 				margin: 0px;
@@ -13,9 +13,11 @@
 	</head>
 	<body>
 		<div id="container"></div>
+		<canvas id="hud"></canvas>
 		<script src="vendor/three.min.js"></script>
 		<script src="./includes.js"></script>
 		<script>
+			
 
 			/*
 			function init() {
@@ -219,6 +221,6 @@
 
 			}*/
 
-        </script>
+		</script>
 	</body>
 </html>

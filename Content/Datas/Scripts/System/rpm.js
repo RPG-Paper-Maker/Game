@@ -9,8 +9,6 @@
         http://rpg-paper-maker.com/index.php/eula.
 */
 
-const console = require('electron').remote.getGlobal('console')
-
 // -------------------------------------------------------
 //
 //  CLASS RPM
@@ -158,6 +156,7 @@ RPM.COLOR_BLACK = SystemColor.createColor(0, 0, 0);
 //  OTHERS
 // -------------------------------------------------------
 
+RPM.that = this;
 RPM.elapsedTime = 0;
 RPM.averageElapsedTime = 0;
 RPM.lastUpdateTime = new Date().getTime();
@@ -187,6 +186,7 @@ RPM.BB_BOX_DETECTION = MapPortion.createBox();
 RPM.BB_BOX_DEFAULT_DETECTION = MapPortion.createBox();
 RPM.BB_ORIENTED_BOX = MapPortion.createOrientedBox();
 RPM.OBJ_LOADER = new THREE.OBJLoader();
+
 RPM.operators_compare =
 [
     function(a, b) { return a === b },
@@ -373,7 +373,7 @@ var KeyEvent = {
     *   @returns {boolean}
     */
     isKeyNumberTopPressed: function(key){
-        var shift = $keysPressed.indexOf(KeyEvent.DOM_VK_SHIFT) !== -1;
+        var shift = RPM.keysPressed.indexOf(KeyEvent.DOM_VK_SHIFT) !== -1;
         return shift && key >= KeyEvent.DOM_VK_0 && key <= KeyEvent.DOM_VK_9;
     },
 
@@ -595,7 +595,7 @@ var KeyEvent = {
             case KeyEvent.POUND:
                 return "£";
             case KeyEvent.DOLLAR:
-                return "$";
+                return "RPM.";
             case KeyEvent.YEN:
                 return "¤";
             case KeyEvent.U_GRAVE:
@@ -727,7 +727,7 @@ RPM.openFile = function(base, url, loading, callback)
 
     if (loading)
     {
-        $filesToLoad++;
+        RPM.filesToLoad++;
     }
     fs.readFile(url, function (e, data) {
         if (e) 
@@ -738,7 +738,7 @@ RPM.openFile = function(base, url, loading, callback)
             callback.call(base, data.toString());
             if (loading)
             {
-                $loadedFiles++;
+                RPM.loadedFiles++;
             }
         }
     });
@@ -777,9 +777,9 @@ RPM.saveFile = function(url, obj)
 *   @returns {boolean}
 */
 RPM.isLoading = function(){
-    if ($filesToLoad === $loadedFiles) {
-        $filesToLoad = 0;
-        $loadedFiles = 0;
+    if (RPM.filesToLoad === RPM.loadedFiles) {
+        RPM.filesToLoad = 0;
+        RPM.loadedFiles = 0;
         return false;
     }
 
@@ -806,8 +806,8 @@ RPM.createFont = function(fontSize, fontName, bold, italic) {
 *   @static
 */
 RPM.updateTimer = function(){
-    if ($game !== null){
-        $game.playTime++;
+    if (RPM.game !== null){
+        RPM.game.playTime++;
     }
 }
 
@@ -882,9 +882,9 @@ RPM.generateMapName = function(id){
 *   @returns {number}
 */
 RPM.positionJSONToIndex = function(position){
-    return (position[0] % RPM.$PORTION_SIZE) + (RPM.mod(position[1], RPM
-        .$PORTION_SIZE) * RPM.$PORTION_SIZE) + ((position[3] % RPM
-        .$PORTION_SIZE) * RPM.$PORTION_SIZE * RPM.$PORTION_SIZE);
+    return (position[0] % RPM.RPM.PORTION_SIZE) + (RPM.mod(position[1], RPM
+        .RPM.PORTION_SIZE) * RPM.RPM.PORTION_SIZE) + ((position[3] % RPM
+        .RPM.PORTION_SIZE) * RPM.RPM.PORTION_SIZE * RPM.RPM.PORTION_SIZE);
 }
 
 // -------------------------------------------------------
@@ -895,9 +895,9 @@ RPM.positionJSONToIndex = function(position){
 *   @returns {number}
 */
 RPM.positionToIndex = function(position) {
-    return (position[0] % RPM.$PORTION_SIZE) + (RPM.mod(position[1], RPM
-        .$PORTION_SIZE) * RPM.$PORTION_SIZE) + ((position[2] % RPM.$PORTION_SIZE
-        ) * RPM.$PORTION_SIZE * RPM.$PORTION_SIZE);
+    return (position[0] % RPM.RPM.PORTION_SIZE) + (RPM.mod(position[1], RPM
+        .RPM.PORTION_SIZE) * RPM.RPM.PORTION_SIZE) + ((position[2] % RPM.RPM.PORTION_SIZE
+        ) * RPM.RPM.PORTION_SIZE * RPM.RPM.PORTION_SIZE);
 }
 
 // -------------------------------------------------------
@@ -909,8 +909,8 @@ RPM.positionToIndex = function(position) {
 */
 RPM.positionToVector3 = function(position){
     var pos = RPM.positionToBorderVector3(position);
-    pos.setX(pos.x + (RPM.positionCenterX(position) / 100 * RPM.$SQUARE_SIZE));
-    pos.setZ(pos.z + (RPM.positionCenterZ(position) / 100 * RPM.$SQUARE_SIZE));
+    pos.setX(pos.x + (RPM.positionCenterX(position) / 100 * RPM.SQUARE_SIZE));
+    pos.setZ(pos.z + (RPM.positionCenterZ(position) / 100 * RPM.SQUARE_SIZE));
 
     return pos;
 }
@@ -924,10 +924,10 @@ RPM.positionToVector3 = function(position){
 */
 RPM.positionToBorderVector3 = function(position){
     return new THREE.Vector3(
-                position[0] * RPM.$SQUARE_SIZE,
-                (position[1] * RPM.$SQUARE_SIZE) +
-                (position[2] * RPM.$SQUARE_SIZE / 100),
-                position[3] * RPM.$SQUARE_SIZE);
+                position[0] * RPM.SQUARE_SIZE,
+                (position[1] * RPM.SQUARE_SIZE) +
+                (position[2] * RPM.SQUARE_SIZE / 100),
+                position[3] * RPM.SQUARE_SIZE);
 }
 
 // -------------------------------------------------------
@@ -938,7 +938,7 @@ RPM.positionToBorderVector3 = function(position){
 *   @returns {number}
 */
 RPM.positionTotalY = function(position){
-    return (position[1] * RPM.$SQUARE_SIZE) + (position[2] * RPM.$SQUARE_SIZE / 
+    return (position[1] * RPM.SQUARE_SIZE) + (position[2] * RPM.SQUARE_SIZE / 
         100);
 }
 
@@ -1059,7 +1059,7 @@ RPM.getScreenY = function(y) {
 */
 
 RPM.getScreenXY = function(xy) {
-    return Math.ceil(($windowX + $windowY) / 2 * xy);
+    return Math.ceil((RPM.windowX + RPM.windowY) / 2 * xy);
 }
 
 // -------------------------------------------------------
@@ -1071,7 +1071,7 @@ RPM.getScreenXY = function(xy) {
 */
 
 RPM.getScreenMinXY = function(xy) {
-    return Math.ceil(xy * Math.min($windowX,$windowY));
+    return Math.ceil(xy * Math.min(RPM.windowX,RPM.windowY));
 }
 
 // -------------------------------------------------------
@@ -1083,7 +1083,7 @@ RPM.getScreenMinXY = function(xy) {
 *   @returns {number}
 */
 RPM.getDoubleScreenX = function(x) {
-    return $windowX * x;
+    return RPM.windowX * x;
 }
 
 // -------------------------------------------------------
@@ -1095,7 +1095,7 @@ RPM.getDoubleScreenX = function(x) {
 *   @returns {number}
 */
 RPM.getDoubleScreenY = function(y) {
-    return $windowY * y;
+    return RPM.windowY * y;
 }
 
 // -------------------------------------------------------
@@ -1106,7 +1106,7 @@ RPM.getDoubleScreenY = function(y) {
 *   @returns {number}
 */
 RPM.getSquare = function(x) {
-    return Math.floor(x / $SQUARE_SIZE);
+    return Math.floor(x / RPM.SQUARE_SIZE);
 };
 
 // -------------------------------------------------------
@@ -1163,9 +1163,9 @@ RPM.sin = function(w){
 RPM.getPortion = function(position){
     var p = RPM.getPosition(position);
     return [
-        Math.floor(p[0] / $PORTION_SIZE),
-        Math.floor(p[1] / $PORTION_SIZE),
-        Math.floor(p[2] / $PORTION_SIZE)
+        Math.floor(p[0] / RPM.PORTION_SIZE),
+        Math.floor(p[1] / RPM.PORTION_SIZE),
+        Math.floor(p[2] / RPM.PORTION_SIZE)
     ]
 }
 
@@ -1173,9 +1173,9 @@ RPM.getPortion = function(position){
 
 RPM.getPosition = function(position){
     return [
-        Math.floor(position.x / $SQUARE_SIZE),
-        Math.floor(position.y / $SQUARE_SIZE),
-        Math.floor(position.z / $SQUARE_SIZE)
+        Math.floor(position.x / RPM.SQUARE_SIZE),
+        Math.floor(position.y / RPM.SQUARE_SIZE),
+        Math.floor(position.z / RPM.SQUARE_SIZE)
     ];
 }
 
@@ -1283,7 +1283,7 @@ RPM.random = function(min, max) {
 *   @retuns {THREE.MeshBasicMaterial}
 */
 RPM.loadTexture = function(paths, picture, callback) {
-    $filesToLoad++;
+    RPM.filesToLoad++;
     var path = paths[0];
     var pathLocal = paths[1];
     var texture;
@@ -1291,9 +1291,9 @@ RPM.loadTexture = function(paths, picture, callback) {
     if (callback) {
         texture = callback.call(this, pathLocal, picture);
     } else {
-        texture = $textureLoader.load(path,
+        texture = RPM.textureLoader.load(path,
             function(t){
-                $loadedFiles++;
+                RPM.loadedFiles++;
             },
             function (t) {},
             function (t) {
@@ -1315,9 +1315,8 @@ RPM.loadTextureEmpty = function(){
     {
         transparent: true,
         side: THREE.DoubleSide,
-        shading: THREE.FlatShading,
-        alphaTest: 0.5,
-        overdraw: 0.5
+        flatShading: THREE.FlatShading,
+        alphaTest: 0.5
     });
 };
 
@@ -1335,7 +1334,7 @@ RPM.createMaterial = function(texture, uniforms) {
     if (!uniforms) {
         uniforms = {
             texture: { type: "t", value: texture },
-            colorD: { type: "v4", value: $screenTone }
+            colorD: { type: "v4", value: RPM.screenTone }
         };
     }
 
@@ -1354,14 +1353,14 @@ RPM.createMaterial = function(texture, uniforms) {
 // -------------------------------------------------------
 
 RPM.updateBackgroundColor = function(color) {
-    $renderer.setClearColor(color.getHex($screenTone), color.alpha);
+    RPM.renderer.setClearColor(color.getHex(RPM.screenTone), color.alpha);
 }
 
 // -------------------------------------------------------
 
 RPM.toScreenPosition = function(vector, camera) {
-    var widthHalf = $canvasWidth / 2;
-    var heightHalf = $canvasHeight / 2;
+    var widthHalf = RPM.canvasWidth / 2;
+    var heightHalf = RPM.canvasHeight / 2;
     var position = vector.clone();
     camera.updateMatrixWorld(true);
     position.project(camera);
@@ -1383,14 +1382,14 @@ RPM.variance = function(value, variance) {
 // -------------------------------------------------------
 
 RPM.evaluateFormula = function(formula, user, target, damage) {
-    return new Function("u", "t", "damage", "$that", "return " + formula)(user,
-        target, damage, $that);
+    return new Function("u", "t", "damage", "RPM.that", "return " + formula)(user,
+        target, damage, RPM.that);
 };
 
 // -------------------------------------------------------
 
 RPM.evaluateScript = function(script) {
-    return new Function("$that", script)($that);
+    return new Function("RPM.that", script)(RPM.that);
 };
 
 // -------------------------------------------------------
@@ -1428,5 +1427,3 @@ RPM.isUndefined = function(value) {
 RPM.numToBool = function(num) {
     return num === RPM.NUM_BOOL_TRUE;
 }
-
-cons.log("ok")

@@ -50,43 +50,39 @@ DatasSystem.prototype = {
             // Project name
             this.projectName = new SystemLang();
             this.projectName.readJSON(json.pn);
-            $window.title = this.projectName.name;
+            Platform.setWindowTitle(this.projectName.name);
 
             // Screen resolution
             w = json.sw;
             h = json.sh;
             isScreenWindow = json.isw;
             if (!isScreenWindow) {
-                $window.visibility = "FullScreen";
-                w = $screenWidth;
-                h = $screenHeight;
+                RPM.window.visibility = "FullScreen";
+                w = RPM.screenWidth;
+                h = RPM.screenHeight;
             }
-            $window.width = w;
-            $window.maximumWidth = w;
-            $window.minimumWidth = w;
-            $window.height = h;
-            $window.maximumHeight = h;
-            $window.minimumHeight = h;
-            $window.setX($screenWidth / 2 - w / 2);
-            $window.setY($screenHeight / 2 - h / 2);
-            $canvasHUD.width = w;
-            $canvasHUD.height = h;
-            $canvas3D.width = w;
-            $canvas3D.height = h;
-            $canvasWidth = w;
-            $canvasHeight = h;
-            $windowX = $canvasWidth / $SCREEN_X;
-            $windowY = $canvasHeight / $SCREEN_Y;
-            $context.width = w;
-            $context.height = h;
-            resizeGL($canvas3D);
-            $requestPaintHUD = true;
+            w = 1000
+            h = 800
+            Platform.setWindowSize(w, h);
+            /*
+            RPM.canvasHUD.width = w;
+            RPM.canvasHUD.height = h;
+            RPM.canvas3D.width = w;
+            RPM.canvas3D.height = h;*/
+            RPM.canvasWidth = w;
+            RPM.canvasHeight = h;
+            RPM.windowX = RPM.canvasWidth / RPM.SCREEN_X;
+            RPM.windowY = RPM.canvasHeight / RPM.SCREEN_Y;
+            //RPM.context.width = w;
+            //RPM.context.height = h;
+            RPM.resizeGL(RPM.canvas3D);
+            RPM.requestPaintHUD = true;
 
             // Other numbers
-            $SQUARE_SIZE = json.ss;
-            //$PORTIONS_RAY_NEAR = json.pr;
-            $PORTIONS_RAY_NEAR = 3;
-            $FRAMES = json.frames;
+            RPM.SQUARE_SIZE = json.ss;
+            //RPM.PORTIONS_RAY_NEAR = json.pr;
+            RPM.PORTIONS_RAY_NEAR = 3;
+            RPM.FRAMES = json.frames;
             this.mountainCollisionHeight = SystemValue.readOrDefaultNumber(json
                 .mch, 4);
             this.mountainCollisionAngle = SystemValue.readOrDefaultNumberDouble(
@@ -103,9 +99,9 @@ DatasSystem.prototype = {
             // Debug
             this.showBB = (typeof json.bb !== 'undefined');
             if (this.showBB) {
-                $BB_MATERIAL.color.setHex(0xff0000);
-                $BB_MATERIAL.wireframe = true;
-                $BB_MATERIAL.visible = true;
+                RPM.BB_MATERIAL.color.setHex(0xff0000);
+                RPM.BB_MATERIAL.wireframe = true;
+                RPM.BB_MATERIAL.visible = true;
             }
 
             // Colors
@@ -213,7 +209,7 @@ DatasSystem.prototype = {
             }
 
             // read song now that BR path is loaded
-            $datasGame.songs.read();
+            RPM.datasGame.songs.read();
 
             // Sounds
             this.soundCursor = new SystemPlaySong(SongKind.Sound);
@@ -229,13 +225,13 @@ DatasSystem.prototype = {
             this.dbOptions = EventCommand.getEventCommand(json.dbo);
             this.dbOptions.update();
 
-            $loadingScene = new SceneLoading();
+            RPM.loadingScene = new SceneLoading();
         });
     },
 
     // -------------------------------------------------------
 
-    /** Update the $modelHero global variable by loading the hero model.
+    /** Update the RPM.modelHero global variable by loading the hero model.
     */
     getModelHero: function(){
         var mapName = RPM.generateMapName(this.idMapStartHero);
@@ -247,7 +243,7 @@ DatasSystem.prototype = {
 
             var jsonObject;
             l = json.length;
-            var id = $datasGame.system.idObjectStartHero;
+            var id = RPM.datasGame.system.idObjectStartHero;
             var position;
 
             for (i = 0; i < l; i++){
@@ -278,7 +274,7 @@ DatasSystem.prototype = {
                                                 globalPortion[2]);
 
                 // Update the hero model
-                $modelHero = mapPortion.getHeroModel(json);
+                RPM.modelHero = mapPortion.getHeroModel(json);
             });
         });
     },

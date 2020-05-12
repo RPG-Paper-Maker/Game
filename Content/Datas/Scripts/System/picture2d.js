@@ -40,9 +40,6 @@ function Picture2D(path, callback, x, y, w, h) {
         this.callback = callback;
         this.checked = false;
         this.empty = false;
-
-        $picturesLoading.push(this);
-        $canvasRendering.loadImage(path);
     } else {
         this.empty = true;
     }
@@ -58,7 +55,7 @@ Picture2D.createImage = function(image, kind, callback, x, y, w, h) {
 // -------------------------------------------------------
 
 Picture2D.createImageWithID = function(id, kind, callback, x, y, w, h) {
-    return Picture2D.createImage($datasGame.pictures.get(kind, id), kind,
+    return Picture2D.createImage(RPM.datasGame.pictures.get(kind, id), kind,
         callback, x, y, w, h);
 }
 
@@ -85,49 +82,43 @@ Picture2D.prototype.createCopy = function() {
 // -------------------------------------------------------
 
 Picture2D.prototype.check = function() {
-    if ($canvasRendering.isImageLoaded(this.path)) {
-        var context = $canvasRendering.getContext('2d');
-        $picturesLoading.splice($picturesLoading.indexOf(this), 1);
-        $picturesLoaded.push(this);
-        this.image = context.createImageData(this.path);
-        this.oW = this.image.width;
-        this.oH = this.image.height;
-        if (this.cover)
-        {
-            this.w = $canvasWidth;
-            this.h = $canvasHeight;
-        } else if (this.stretch)
-        {
-            this.w = RPM.getScreenX(this.image.width);
-            this.h = RPM.getScreenY(this.image.height);
-        } else
-        {
-            this.w = RPM.getScreenMinXY(this.image.width);
-            this.h = RPM.getScreenMinXY(this.image.height);
-        }
-
-        if (this.callback) {
-            this.callback.call(this);
-        }
-        this.checked = true;
-        $requestPaintHUD = true;
-        return true;
-    }
     if (this.empty) {
         Bitmap.prototype.setW.call(this, 1);
         Bitmap.prototype.setH.call(this, 1);
         this.checked = true;
-        $requestPaintHUD = true;
+        RPM.requestPaintHUD = true;
+        return true;
+    } else
+    {
+        this.image = nativeImage.createFromPath(path);
+        let size = image.getSize();
+        this.oW = size.width;
+        this.oH = this.image.height;
+        if (this.cover)
+        {
+            this.w = RPM.canvasWidth;
+            this.h = RPM.canvasHeight;
+        } else if (this.stretch)
+        {
+            this.w = RPM.getScreenX(size.width);
+            this.h = RPM.getScreenY(size.height);
+        } else
+        {
+            this.w = RPM.getScreenMinXY(size.width);
+            this.h = RPM.getScreenMinXY(size.height);
+        }
+
+        this.callback.call(this);
+        this.checked = true;
+        RPM.requestPaintHUD = true;
         return true;
     }
-
-    return false;
 };
 
 // -------------------------------------------------------
 
 Picture2D.prototype.destroy = function() {
-    $canvasRendering.unloadImage(this.path);
+    RPM.canvasRendering.unloadImage(this.path);
 };
 
 // -------------------------------------------------------
@@ -186,35 +177,35 @@ Picture2D.prototype.draw = function(x, y, w, h, sx, sy, sw, sh, positionResize)
         var angle;
 
         angle = this.angle * Math.PI / 180;
-        $context.save();
-        $context.globalAlpha = this.opacity;
+        RPM.context.save();
+        RPM.context.globalAlpha = this.opacity;
         if (!this.centered) {
             if (this.reverse) {
-                $context.scale(-1, 1);
-                $context.translate(-x -w, y);
+                RPM.context.scale(-1, 1);
+                RPM.context.translate(-x -w, y);
             } else {
-                $context.translate(x, y);
+                RPM.context.translate(x, y);
             }
         }
         if (angle !== 0) {
             if (this.centered) {
-                $context.translate(x + w / 2, y + h / 2);
+                RPM.context.translate(x + w / 2, y + h / 2);
             }
-            $context.rotate(angle);
+            RPM.context.rotate(angle);
             if (this.centered) {
-                $context.translate(-x - w / 2, -y - h / 2);
+                RPM.context.translate(-x - w / 2, -y - h / 2);
             }
         }
         if (this.centered) {
             if (this.reverse) {
-                $context.scale(-1, 1);
-                $context.translate(-x -w, y);
+                RPM.context.scale(-1, 1);
+                RPM.context.translate(-x -w, y);
             } else {
-                $context.translate(x - (w / 2), y - (h / 2));
+                RPM.context.translate(x - (w / 2), y - (h / 2));
             }
         }
-        $context.drawImage(this.path, sx, sy, sw, sh, 0, 0, w, h);
-        $context.globalAlpha = 1.0;
-        $context.restore();
+        RPM.context.drawImage(this.path, sx, sy, sw, sh, 0, 0, w, h);
+        RPM.context.globalAlpha = 1.0;
+        RPM.context.restore();
     }
 };

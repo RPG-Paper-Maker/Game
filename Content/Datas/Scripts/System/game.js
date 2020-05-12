@@ -31,8 +31,8 @@
 */
 function Game() {
     this.currentSlot = -1;
-    this.hero = new MapObject($modelHero.system, new THREE.Vector3($modelHero
-        .position.x, $modelHero.position.y, $modelHero.position.z), true);
+    this.hero = new MapObject(RPM.modelHero.system, new THREE.Vector3(RPM.modelHero
+        .position.x, RPM.modelHero.position.y, RPM.modelHero.position.z), true);
 }
 
 Game.getHeroInstanceInTab = function(tab, id) {
@@ -76,10 +76,10 @@ Game.prototype = {
         this.reserveHeroes = [];
         this.hiddenHeroes = [];
         this.items = [];
-        this.currencies = $datasGame.system.getDefaultCurrencies();
+        this.currencies = RPM.datasGame.system.getDefaultCurrencies();
         this.charactersInstances = 0;
         this.initializeVariables();
-        this.currentMapId = $datasGame.system.idMapStartHero;
+        this.currentMapId = RPM.datasGame.system.idMapStartHero;
         this.heroStates = [1];
         this.heroProperties = [];
         this.startupStates = {};
@@ -95,8 +95,8 @@ Game.prototype = {
     /** Initialize the default variables.
     */
     initializeVariables: function(){
-        this.variables = new Array($datasGame.variablesNumbers);
-        for (var i = 0; i < $datasGame.variablesNumbers; i++)
+        this.variables = new Array(RPM.datasGame.variablesNumbers);
+        for (var i = 0; i < RPM.datasGame.variablesNumbers; i++)
             this.variables[i] = null;
     },
 

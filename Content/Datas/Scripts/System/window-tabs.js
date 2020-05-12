@@ -120,7 +120,7 @@ WindowTabs.prototype = {
         }
         this.offsetSelectedIndex = 0;
 
-        $requestPaintHUD = true;
+        RPM.requestPaintHUD = true;
     },
 
     // -------------------------------------------------------
@@ -231,7 +231,7 @@ WindowTabs.prototype = {
             this.listWindows[this.currentSelectedIndex].selected = false;
             this.currentSelectedIndex = -1;
             this.offsetSelectedIndex = 0;
-            $requestPaintHUD = true;
+            RPM.requestPaintHUD = true;
         }
     },
 
@@ -249,7 +249,7 @@ WindowTabs.prototype = {
 
             this.currentSelectedIndex = i;
             this.listWindows[this.currentSelectedIndex].selected = true;
-            $requestPaintHUD = true;
+            RPM.requestPaintHUD = true;
         }
     },
 
@@ -279,8 +279,8 @@ WindowTabs.prototype = {
             this.offsetSelectedIndex = this.size - 1;
         }
         if (index !== this.currentSelectedIndex) {
-            $datasGame.system.soundCursor.playSound();
-            $requestPaintHUD = true;
+            RPM.datasGame.system.soundCursor.playSound();
+            RPM.requestPaintHUD = true;
         }
     },
 
@@ -303,8 +303,8 @@ WindowTabs.prototype = {
             this.offsetSelectedIndex = 0;
         }
         if (index !== this.currentSelectedIndex) {
-            $datasGame.system.soundCursor.playSound();
-            $requestPaintHUD = true;
+            RPM.datasGame.system.soundCursor.playSound();
+            RPM.requestPaintHUD = true;
         }
     },
 
@@ -315,18 +315,18 @@ WindowTabs.prototype = {
     */
     onKeyPressed: function(key, base){
         if (this.currenSelectedIndex !== -1) {
-            if (DatasKeyBoard.isKeyEqual(key, $datasGame.keyBoard.menuControls
+            if (DatasKeyBoard.isKeyEqual(key, RPM.datasGame.keyBoard.menuControls
                 .Action))
             {
                 var callback = this.listCallBacks[this.currentSelectedIndex];
                 if (callback !== null) {
                     if (callback.call(base)) {
-                        $datasGame.system.soundConfirmation.playSound();
+                        RPM.datasGame.system.soundConfirmation.playSound();
                     } else {
-                        $datasGame.system.soundImpossible.playSound();
+                        RPM.datasGame.system.soundImpossible.playSound();
                     }
                 } else {
-                    $datasGame.system.soundImpossible.playSound();
+                    RPM.datasGame.system.soundImpossible.playSound();
                 }
             }
         }
@@ -344,22 +344,22 @@ WindowTabs.prototype = {
             this.listWindows[this.currentSelectedIndex].selected = false;
 
             if (this.orientation === OrientationWindow.Vertical) {
-                if (DatasKeyBoard.isKeyEqual(key, $datasGame.keyBoard
+                if (DatasKeyBoard.isKeyEqual(key, RPM.datasGame.keyBoard
                     .menuControls.Down))
                 {
                     WindowTabs.prototype.goDown.call(this);
-                } else if (DatasKeyBoard.isKeyEqual(key, $datasGame.keyBoard
+                } else if (DatasKeyBoard.isKeyEqual(key, RPM.datasGame.keyBoard
                     .menuControls.Up))
                 {
                     WindowTabs.prototype.goUp.call(this);
                 }
             } else {
-                if (DatasKeyBoard.isKeyEqual(key, $datasGame.keyBoard
+                if (DatasKeyBoard.isKeyEqual(key, RPM.datasGame.keyBoard
                     .menuControls.Right))
                 {
                     WindowTabs.prototype.goDown.call(this);
                 }
-                else if (DatasKeyBoard.isKeyEqual(key, $datasGame.keyBoard
+                else if (DatasKeyBoard.isKeyEqual(key, RPM.datasGame.keyBoard
                     .menuControls.Left))
                 {
                     WindowTabs.prototype.goUp.call(this);
