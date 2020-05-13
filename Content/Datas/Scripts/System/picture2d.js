@@ -177,35 +177,35 @@ Picture2D.prototype.draw = function(x, y, w, h, sx, sy, sw, sh, positionResize)
         var angle;
 
         angle = this.angle * Math.PI / 180;
-        RPM.context.save();
-        RPM.context.globalAlpha = this.opacity;
+        Platform.ctx.save();
+        Platform.ctx.globalAlpha = this.opacity;
         if (!this.centered) {
             if (this.reverse) {
-                RPM.context.scale(-1, 1);
-                RPM.context.translate(-x -w, y);
+                Platform.ctx.scale(-1, 1);
+                Platform.ctx.translate(-x -w, y);
             } else {
-                RPM.context.translate(x, y);
+                Platform.ctx.translate(x, y);
             }
         }
         if (angle !== 0) {
             if (this.centered) {
-                RPM.context.translate(x + w / 2, y + h / 2);
+                Platform.ctx.translate(x + w / 2, y + h / 2);
             }
-            RPM.context.rotate(angle);
+            Platform.ctx.rotate(angle);
             if (this.centered) {
-                RPM.context.translate(-x - w / 2, -y - h / 2);
+                Platform.ctx.translate(-x - w / 2, -y - h / 2);
             }
         }
         if (this.centered) {
             if (this.reverse) {
-                RPM.context.scale(-1, 1);
-                RPM.context.translate(-x -w, y);
+                Platform.ctx.scale(-1, 1);
+                Platform.ctx.translate(-x -w, y);
             } else {
-                RPM.context.translate(x - (w / 2), y - (h / 2));
+                Platform.ctx.translate(x - (w / 2), y - (h / 2));
             }
         }
-        RPM.context.drawImage(this.path, sx, sy, sw, sh, 0, 0, w, h);
-        RPM.context.globalAlpha = 1.0;
-        RPM.context.restore();
+        Platform.ctx.drawImage(this.path, sx, sy, sw, sh, 0, 0, w, h);
+        Platform.ctx.globalAlpha = 1.0;
+        Platform.ctx.restore();
     }
 };

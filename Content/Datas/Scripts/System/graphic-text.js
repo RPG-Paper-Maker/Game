@@ -99,18 +99,18 @@ GraphicText.prototype = {
     *   used before a context.measureText.
     */
     updateContextFontReal: function(){
-        Platform.context.font = this.font;
+        Platform.ctx.font = this.font;
     },
 
     updateContextFont: function(){
-        Platform.context.font = this.fontWithoutResize;
+        Platform.ctx.font = this.fontWithoutResize;
     },
 
     measureText: function() {
         var w;
 
         this.updateContextFont();
-        w = Platform.context.measureText(this.text);
+        w = Platform.ctx.measureText(this.text);
         this.textWidth = w.width;
         this.textHeight = RPM.getScreenMinXY(this.fontSize);
 
@@ -184,35 +184,35 @@ GraphicText.prototype = {
 
         // Draw background color
         if (this.backColor !== null) {
-            RPM.context.fillStyle = this.backColor.rgb;
-            RPM.context.fillRect(xBack, y - textHeight, textWidth, textHeight);
+            Platform.ctx.fillStyle = this.backColor.rgb;
+            Platform.ctx.fillRect(xBack, y - textHeight, textWidth, textHeight);
         }
 
         // Set context options
-        RPM.context.font = this.font;
-        RPM.context.textAlign = this.align;
+        Platform.ctx.font = this.font;
+        Platform.ctx.textAlign = this.align;
         lineHeight = this.fontSize * 2;
         lines = this.text.split("\n");
         l = lines.length;
 
         // Stroke text
         if (this.strokeColor !== null) {
-            RPM.context.strokeStyle = this.strokeColor.rgb;
+            Platform.ctx.strokeStyle = this.strokeColor.rgb;
             yOffset = 0;
             for (i = 0; i < l; ++i) {
-                RPM.context.strokeText(lines[i], x - 1, y - 1 + yOffset);
-                RPM.context.strokeText(lines[i], x - 1, y  + 1 + yOffset);
-                RPM.context.strokeText(lines[i], x + 1, y - 1 + yOffset);
-                RPM.context.strokeText(lines[i], x + 1, y + 1 + yOffset);
+                Platform.ctx.strokeText(lines[i], x - 1, y - 1 + yOffset);
+                Platform.ctx.strokeText(lines[i], x - 1, y  + 1 + yOffset);
+                Platform.ctx.strokeText(lines[i], x + 1, y - 1 + yOffset);
+                Platform.ctx.strokeText(lines[i], x + 1, y + 1 + yOffset);
                 yOffset += lineHeight;
             }
         }
 
         // Drawing the text
-        RPM.context.fillStyle = this.color.rgb;
+        Platform.ctx.fillStyle = this.color.rgb;
         yOffset = 0;
         for (i = 0; i < l; ++i) {
-            RPM.context.fillText(lines[i], x, y + yOffset);
+            Platform.ctx.fillText(lines[i], x, y + yOffset);
             yOffset += lineHeight;
         }
     },

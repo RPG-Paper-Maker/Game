@@ -211,13 +211,13 @@ GraphicPlayer.prototype = {
             wBattler, hBattler;
 
         // Measure widths
-        RPM.context.font = this.graphicName.font;
-        wName = RPM.context.measureText(this.graphicName.text).width;
-        wLevelName = RPM.context.measureText(this.graphicLevelName.text).width;
-        wLevel = RPM.context.measureText(this.graphicLevelName.text).width;
+        Platform.ctx.font = this.graphicName.font;
+        wName = Platform.ctx.measureText(this.graphicName.text).width;
+        wLevelName = Platform.ctx.measureText(this.graphicLevelName.text).width;
+        wLevel = Platform.ctx.measureText(this.graphicLevelName.text).width;
         xLevelName = x + wName + 10;
         xLevel = xLevelName + wLevelName;
-        firstLineLength = xLevel + RPM.context.measureText(this.graphicLevel.text)
+        firstLineLength = xLevel + Platform.ctx.measureText(this.graphicLevel.text)
             .width;
 
         // Battler
@@ -275,17 +275,17 @@ GraphicPlayer.prototype = {
         // Stats
         this.graphicName.draw(xCharacter, yName, 0, 0);
         this.graphicName.updateContextFont();
-        xLevelName = xCharacter + RPM.context.measureText(this.graphicName.text)
+        xLevelName = xCharacter + Platform.ctx.measureText(this.graphicName.text)
             .width + 10;
         this.graphicLevelName.draw(xLevelName, yName, 0, 0);
         this.graphicLevelName.updateContextFont();
-        xLevel = xLevelName + RPM.context.measureText(this.graphicLevelName.text)
+        xLevel = xLevelName + Platform.ctx.measureText(this.graphicLevelName.text)
             .width;
         this.graphicLevel.draw(xLevel, yName, 0, 0);
 
         // Level up
         if (this.gamePlayer.levelingUp) {
-            xLevelUp = xLevel + RPM.context.measureText(this.graphicLevel.text)
+            xLevelUp = xLevel + Platform.ctx.measureText(this.graphicLevel.text)
                 .width + 10;
             this.graphicLevelUp.draw(xLevelUp, yName, 0, 0);
         }
@@ -294,7 +294,7 @@ GraphicPlayer.prototype = {
         this.graphicClass.draw(xCharacter, yClass, 0, 0);
         yExp = yClass + 29;
         this.graphicExpName.draw(xCharacter, yExp, 0, 0);
-        xExp = xCharacter + RPM.context.measureText(this.graphicExpName.text).width
+        xExp = xCharacter + Platform.ctx.measureText(this.graphicExpName.text).width
             + 10;
         this.graphicExp.draw(xExp, yExp, 0, 0);
     },
@@ -313,12 +313,12 @@ GraphicPlayer.prototype = {
         this.graphicName.updateContextFontReal();
         this.graphicLevelName.updateContextFontReal();
         this.graphicLevel.updateContextFontReal();
-        wName = RPM.context.measureText(this.graphicName.text).width;
-        wLevelName = RPM.context.measureText(this.graphicLevelName.text).width;
-        wLevel = RPM.context.measureText(this.graphicLevelName.text).width;
+        wName = Platform.ctx.measureText(this.graphicName.text).width;
+        wLevelName = Platform.ctx.measureText(this.graphicLevelName.text).width;
+        wLevel = Platform.ctx.measureText(this.graphicLevelName.text).width;
         xLevelName = x + wName + 10;
         xLevel = xLevelName + wLevelName;
-        firstLineLength = xLevel + RPM.context.measureText(this.graphicLevel.text)
+        firstLineLength = xLevel + Platform.ctx.measureText(this.graphicLevel.text)
             .width;
         xOffset = this.reverse ? w - Math.max(firstLineLength, this
             .maxStatNamesLength + 10 + this.maxStatLength) : 0;

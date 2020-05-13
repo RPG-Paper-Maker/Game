@@ -64,17 +64,15 @@ DatasSystem.prototype = {
             w = 1000
             h = 800
             Platform.setWindowSize(w, h);
-            /*
-            RPM.canvasHUD.width = w;
-            RPM.canvasHUD.height = h;
-            RPM.canvas3D.width = w;
-            RPM.canvas3D.height = h;*/
+            
+            Platform.canvasHUD.width = w;
+            Platform.canvasHUD.height = h;
+            Platform.canvas3D.width = w;
+            Platform.canvas3D.height = h;
             RPM.canvasWidth = w;
             RPM.canvasHeight = h;
             RPM.windowX = RPM.canvasWidth / RPM.SCREEN_X;
             RPM.windowY = RPM.canvasHeight / RPM.SCREEN_Y;
-            //RPM.context.width = w;
-            //RPM.context.height = h;
             RPM.resizeGL(RPM.canvas3D);
             RPM.requestPaintHUD = true;
 

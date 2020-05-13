@@ -76,7 +76,7 @@ GamePlayer.getEquipmentLength = function(){
     for (i = 0; i < l; i++){
         var text = new GraphicText(RPM.datasGame.battleSystem.equipments[i+1]);
         text.updateContextFont();
-        var c = RPM.context.measureText(text.text).width;
+        var c = Platform.ctx.measureText(text.text).width;
         if (c > maxLength) maxLength = c;
     }
 

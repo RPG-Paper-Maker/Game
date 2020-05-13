@@ -47,6 +47,7 @@ function createWindow () {
     })
     window.loadFile('index.html');
     window.removeMenu();
+    window.openDevTools()
 }
 
 app.whenReady().then(createWindow)

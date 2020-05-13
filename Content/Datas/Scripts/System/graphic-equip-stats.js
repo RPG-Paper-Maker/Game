@@ -59,9 +59,9 @@ function GraphicEquipStats(gamePlayer, newValues){
 
             // Name of the stat
             graphicName = new GraphicText(statistic.name + ":");
-            RPM.context.font = graphicName.font;
+            Platform.ctx.font = graphicName.font;
             graphicName.updateContextFont();
-            c = RPM.context.measureText(graphicName.text).width;
+            c = Platform.ctx.measureText(graphicName.text).width;
             if (c > maxLength)
                 maxLength = c;
             this.listStatsNames.push(graphicName);
@@ -72,9 +72,9 @@ function GraphicEquipStats(gamePlayer, newValues){
                txt += "/" + gamePlayer[statistic.getMaxAbbreviation()];
             }
             graphicValue = new GraphicText(txt);
-            RPM.context.font = graphicValue.font;
+            Platform.ctx.font = graphicValue.font;
             graphicValue.updateContextFont();
-            c = RPM.context.measureText(graphicValue.text).width;
+            c = Platform.ctx.measureText(graphicValue.text).width;
             if (c > maxLengthValue)
                 maxLengthValue = c;
             this.listStats.push(graphicValue);
@@ -100,9 +100,9 @@ function GraphicEquipStats(gamePlayer, newValues){
 
     // Arrow
     this.graphicArrow = new GraphicText("->");
-    RPM.context.font = this.graphicArrow.font;
+    Platform.ctx.font = this.graphicArrow.font;
     this.graphicArrow.updateContextFont();
-    this.arrowLength = RPM.context.measureText(this.graphicArrow.text).width;
+    this.arrowLength = Platform.ctx.measureText(this.graphicArrow.text).width;
 }
 
 GraphicEquipStats.prototype = {

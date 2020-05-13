@@ -81,9 +81,9 @@ GraphicStatisticProgression.prototype = {
                 }
 
                 graphicName = new GraphicText(statistic.name + ":");
-                RPM.context.font = graphicName.font;
+                Platform.ctx.font = graphicName.font;
                 graphicName.updateContextFont();
-                c = RPM.context.measureText(graphicName.text).width;
+                c = Platform.ctx.measureText(graphicName.text).width;
                 if (c > this.maxLength) {
                     this.maxLength = c;
                 }
@@ -104,9 +104,9 @@ GraphicStatisticProgression.prototype = {
                     txt += "/" + this.gamePlayer[statistic.getMaxAbbreviation()];
                 }
                 graphic = new GraphicText(txt);
-                RPM.context.font = graphic.font;
+                Platform.ctx.font = graphic.font;
                 graphic.updateContextFont();
-                c = RPM.context.measureText(graphic.text).width;
+                c = Platform.ctx.measureText(graphic.text).width;
                 if (c > this.maxProgressionLength) {
                     this.maxProgressionLength = c;
                 }

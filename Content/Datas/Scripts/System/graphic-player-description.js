@@ -75,9 +75,9 @@ function GraphicPlayerDescription(gamePlayer) {
             }
 
             graphicName = new GraphicText(statistic.name + ":");
-            RPM.context.font = graphicName.font;
+            Platform.ctx.font = graphicName.font;
             graphicName.updateContextFont();
-            c = RPM.context.measureText(graphicName.text).width;
+            c = Platform.ctx.measureText(graphicName.text).width;
             if (c > maxLength) maxLength = c;
             if (j%7 === 6){
                 this.listLength.push(maxLength);
@@ -155,9 +155,9 @@ GraphicPlayerDescription.prototype = {
             {
                 statistic = RPM.datasGame.battleSystem.statistics[id];
                 graphicName = new GraphicText(statistic.name + ":");
-                RPM.context.font = graphicName.font;
+                Platform.ctx.font = graphicName.font;
                 graphicName.updateContextFont();
-                c = RPM.context.measureText(graphicName.text).width;
+                c = Platform.ctx.measureText(graphicName.text).width;
                 if (c > this.maxLength) {
                     this.maxLength = c;
                 }
@@ -242,18 +242,18 @@ GraphicPlayerDescription.prototype = {
         yName = y + 10;
         this.graphicName.draw(xCharacter, yName, 0, 0);
         this.graphicName.updateContextFont();
-        xLevelName = xCharacter + RPM.context.measureText(this.graphicName.text)
+        xLevelName = xCharacter + Platform.ctx.measureText(this.graphicName.text)
             .width + 10;
         this.graphicLevelName.draw(xLevelName, yName, 0, 0);
         this.graphicLevelName.updateContextFont();
-        xLevel = xLevelName + RPM.context.measureText(this.graphicLevelName.text)
+        xLevel = xLevelName + Platform.ctx.measureText(this.graphicLevelName.text)
             .width;
         this.graphicLevel.draw(xLevel, yName, 0, 0);
         yClass = yName + 20;
         this.graphicClass.draw(xCharacter, yClass, 0, 0);
         yExp = yClass + 20;
         this.graphicExpName.draw(xCharacter, yExp, 0, 0);
-        xExp = xCharacter + RPM.context.measureText(this.graphicExpName.text).width
+        xExp = xCharacter + Platform.ctx.measureText(this.graphicExpName.text).width
             + 10;
         this.graphicExp.draw(xExp, yExp, 0, 0);
         yStats = yExp + 30;

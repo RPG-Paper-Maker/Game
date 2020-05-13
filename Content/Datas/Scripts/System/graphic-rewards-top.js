@@ -24,9 +24,9 @@ function GraphicRewardsTop(xp, currencies) {
     // Experience
     this.graphicXP = new GraphicText(RPM.datasGame.battleSystem.getExpStatistic()
         .name + ": " + xp);
-    RPM.context.font = this.graphicXP.font;
+    Platform.ctx.font = this.graphicXP.font;
     this.graphicXP.updateContextFont();
-    this.graphicXPLength = RPM.context.measureText(this.graphicXP.text).width;
+    this.graphicXPLength = Platform.ctx.measureText(this.graphicXP.text).width;
 
     // Currencies
     this.currencies = [];

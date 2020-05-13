@@ -138,13 +138,13 @@ WindowBox.prototype = {
             // Draw content
             if (this.content !== null) {
                 if (!isChoice && this.limitContent) {
-                    RPM.context.save();
-                    RPM.context.beginPath();
-                    RPM.context.rect(RPM.getScreenX(contentDimension[0]), RPM
+                    Platform.ctx.save();
+                    Platform.ctx.beginPath();
+                    Platform.ctx.rect(RPM.getScreenX(contentDimension[0]), RPM
                         .getScreenY(contentDimension[1] - (this.padding[3] / 2))
                         , RPM.getScreenX(contentDimension[2]), RPM.getScreenY(
                         contentDimension[3] + this.padding[3]));
-                    RPM.context.clip();
+                    Platform.ctx.clip();
                 }
                 if (isChoice){
                     this.content.draw(
@@ -162,7 +162,7 @@ WindowBox.prototype = {
                     );
                 }
                 if (this.limitContent) {
-                    RPM.context.restore();
+                    Platform.ctx.restore();
                 }
             }
         }

@@ -2,18 +2,28 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-		<meta http-equiv="Content-Security-Policy" content="default-src 'self'">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, default-src 'self'">
 		<style>
 			body {
-				margin: 0px;
+				margin: 0;
+				padding: 0;
 				overflow: hidden;
+			}
+			#hud {
+				margin: 0;
+				padding: 0;
+			}
+			#rendering {
+				display: none;
+				overflow: hidden;
+				background-color: green;
 			}
 		</style>
 	</head>
 	<body>
-		<div id="container"></div>
-		<canvas id="hud"></canvas>
+		<div id="3d"></div>
+		<canvas id="hud" width="640px" height="480px"></canvas>
+		<canvas id="rendering" width="4096px" height="4096px"></canvas>
 		<script src="vendor/three.min.js"></script>
 		<script src="./includes.js"></script>
 		<script>

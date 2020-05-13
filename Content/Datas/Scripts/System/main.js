@@ -127,9 +127,9 @@ RPM.onKeyPressedAndRepeat = function(key)
 /** Draw the 3D for the current stack.
 *   @param {Canvas} canvas The 3D canvas.
 */
-RPM.draw3D = function(canvas)
+RPM.draw3D = function()
 {
-    RPM.gameStack.draw3D(canvas);
+    RPM.gameStack.draw3D();
 }
 
 // -------------------------------------------------------
@@ -143,12 +143,14 @@ RPM.drawHUD = function(loading)
     if (RPM.requestPaintHUD)
     {
         RPM.requestPaintHUD = false;
-        RPM.context.clearRect(0, 0, RPM.canvasWidth, RPM.canvasHeight);
-        RPM.context.lineWidth = 1;
-        RPM.context.webkitImageSmoothingEnabled = false;
-        RPM.context.imageSmoothingEnabled = false;
-        if (loading) {
-            if (RPM.loadingScene) {
+        Platform.ctx.clearRect(0, 0, RPM.canvasWidth, RPM.canvasHeight);
+        Platform.ctx.lineWidth = 1;
+        Platform.ctx.webkitImageSmoothingEnabled = false;
+        Platform.ctx.imageSmoothingEnabled = false;
+        if (loading) 
+        {
+            if (RPM.loadingScene) 
+            {
                 RPM.loadingScene.drawHUD();
             }
         }
@@ -159,8 +161,60 @@ RPM.drawHUD = function(loading)
     RPM.gameStack.displayingContent = !loading;
 }
 
+// -------------------------------------------------------
+
+/** Main loop of the game.
+*/
+
+RPM.loop = function()
+{
+    requestAnimationFrame(RPM.loop);
+
+    // Loading datas game
+    if (RPM.datasGame && !RPM.datasGame.loaded) 
+    {
+        RPM.datasGame.updateLoadings();
+        RPM.renderer.clear();
+        RPM.drawHUD(true);
+        return;
+    }
+    if (!RPM.isLoading()) 
+    {
+        if (!RPM.gameStack.isEmpty()) 
+        {
+            // Callbacks
+            var callback = RPM.gameStack.top().callBackAfterLoading;
+            if (callback === null) 
+            {
+                RPM.update();
+                callback = Game.$gameStack.top().callBackAfterLoading;
+                if (callback === null) 
+                {
+                    RPM.draw3D();
+                    RPM.drawHUD(false);
+                }
+            } else 
+            {
+                if (!RPM.gameStack.top().isBattleMap) 
+                {
+                    RPM.renderer.clear();
+                    RPM.drawHUD(true);
+                }
+                if (callback) 
+                {
+                    RPM.gameStack.top().callBackAfterLoading = undefined;
+                    callback.call(RPM.gameStack.top());
+                }
+            }
+        }
+        else {
+            RPM.gameStack.pushTitleScreen();
+        }
+    }
+}
+
 // Start!
 RPM.initializeGL();
 RPM.initialize();
 
-//requestAnimationFrame( RPM.update );
+requestAnimationFrame(RPM.loop);

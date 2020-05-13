@@ -37,9 +37,9 @@ function GraphicTextIcon(text, iconID, side, align, space) {
     this.textIcon.icon = Picture2D.createImage(RPM.datasGame.pictures.getIcon(
         iconID), PictureKind.Icons);
     this.textIcon.text = new GraphicText(text);
-    RPM.context.font = this.textIcon.text.font;
+    Platform.ctx.font = this.textIcon.text.font;
     this.textIcon.text.updateContextFont();
-    this.textIcon.length = RPM.context.measureText(this.textIcon.text.text).width;
+    this.textIcon.length = Platform.ctx.measureText(this.textIcon.text.text).width;
 }
 
 GraphicTextIcon.prototype = {

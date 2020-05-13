@@ -290,11 +290,11 @@ SceneBattle.prototype.onKeyPressedAndRepeatStep0 = function(key){
 
 SceneBattle.prototype.drawHUDStep0 = function() {
     if (this.transitionStart === 1) {
-        RPM.context.fillStyle = RPM.STRING_RGBA + RPM.STRING_PARENTHESIS_LEFT + 
+        Platform.ctx.fillStyle = RPM.STRING_RGBA + RPM.STRING_PARENTHESIS_LEFT + 
             this.transitionStartColor.red + RPM.STRING_COMA + this
             .transitionStartColor.green + RPM.STRING_COMA + this
             .transitionStartColor.blue + RPM.STRING_COMA + this
             .transitionColorAlpha + RPM.STRING_PARENTHESIS_RIGHT;
-        RPM.context.fillRect(0, 0, RPM.canvasWidth, RPM.canvasHeight);
+        Platform.ctx.fillRect(0, 0, RPM.canvasWidth, RPM.canvasHeight);
     }
 };

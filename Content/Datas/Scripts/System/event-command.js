@@ -628,7 +628,7 @@ EventCommandInputNumber.prototype = {
     *   @param {Object} currentState The current state of the event.
     */
     drawHUD: function(currentState){
-        RPM.context.fillText(currentState.entered, RPM.canvasWidth / 2, RPM.canvasHeight
+        Platform.ctx.fillText(currentState.entered, RPM.canvasWidth / 2, RPM.canvasHeight
             / 2);
     }
 }

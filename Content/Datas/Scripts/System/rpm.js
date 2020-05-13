@@ -28,7 +28,7 @@ function RPM()
 // -------------------------------------------------------
 
 RPM.PATH_BR = "";
-RPM.PATH_DATAS = "Content/Datas/";
+RPM.PATH_DATAS = "./Content/Datas/";
 RPM.FILE_MAPS = RPM.PATH_DATAS + "Maps/";
 RPM.FILE_MAP_INFOS = "/infos.json";
 RPM.FILE_MAP_OBJECTS = "/objects.json";
@@ -729,6 +729,7 @@ RPM.openFile = function(base, url, loading, callback)
     {
         RPM.filesToLoad++;
     }
+    /*
     fs.readFile(url, function (e, data) {
         if (e) 
         {
@@ -741,7 +742,7 @@ RPM.openFile = function(base, url, loading, callback)
                 RPM.loadedFiles++;
             }
         }
-    });
+    });*/
 }
 
 RPM.openFile(null, RPM.PATH_SHADERS + "fix.vert", false, function(res) {

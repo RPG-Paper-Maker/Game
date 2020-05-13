@@ -206,10 +206,10 @@ SystemTileset.prototype = {
         textureAutotile = null;
         that = this;
         texture = new THREE.Texture();
-        context = RPM.canvasRendering.getContext("2d");
-        context.clearRect(0, 0, RPM.canvasRendering.width, RPM.canvasRendering.height);
-        RPM.canvasRendering.width = 64 * RPM.SQUARE_SIZE;
-        RPM.canvasRendering.height = RPM.MAX_PICTURE_SIZE;
+        context = Platform.canvasRendering.getContext("2d");
+        context.clearRect(0, 0, Platform.canvasRendering.width, Platform.canvasRendering.height);
+        Platform.canvasRendering.width = 64 * RPM.SQUARE_SIZE;
+        Platform.canvasRendering.height = RPM.MAX_PICTURE_SIZE;
         this.texturesAutotiles = new Array;
 
         callback = function() {
@@ -326,13 +326,8 @@ SystemTileset.prototype = {
             result.push(texture);
             result.push(offset);
         };
-
-
-        if (RPM.canvasRendering.isImageLoaded(pathLocal)) {
-            callback.call(this);
-        } else {
-            pic = new Picture2D(pathLocal, callback);
-        }
+        
+        pic = new Picture2D(pathLocal, callback);
 
         return result;
     },

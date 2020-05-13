@@ -357,10 +357,10 @@ SceneBattle.prototype.drawHUDStep4 = function() {
     case 3:
         // Transition fade
         if (this.transitionEnd === 1) {
-            RPM.context.fillStyle = "rgba(" + this.transitionEndColor.red + "," +
+            Platform.ctx.fillStyle = "rgba(" + this.transitionEndColor.red + "," +
                 this.transitionEndColor.green + "," + this.transitionEndColor.blue +
                 "," + this.transitionColorAlpha + ")";
-            RPM.context.fillRect(0, 0, RPM.canvasWidth, RPM.canvasHeight);
+            Platform.ctx.fillRect(0, 0, RPM.canvasWidth, RPM.canvasHeight);
         }
         break;
     }
