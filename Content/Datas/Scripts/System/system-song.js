@@ -85,5 +85,17 @@ SystemSong.prototype = {
         paths[1] += "/" + this.name;
 
         return paths;
+    },
+
+    // -------------------------------------------------------
+
+    load: function(kind)
+    {
+        if (this.id !== -1)
+        {
+            this.song = new Howl({
+                src: [this.getPath(kind)[0]]
+            });
+        }
     }
 }

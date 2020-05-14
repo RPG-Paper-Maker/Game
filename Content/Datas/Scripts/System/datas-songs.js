@@ -61,6 +61,7 @@ DatasSongs.prototype = {
                         id = jsonSong.id;
                         var song = new SystemSong();
                         song.readJSON(jsonSong);
+                        song.load(k);
 
                         if (id === -1)
                             id = 0;
@@ -70,7 +71,6 @@ DatasSongs.prototype = {
                 }
 
                 this.list[k] = list;
-                RPM.songsManager.addSongs(k, list);
             }
         });
     },

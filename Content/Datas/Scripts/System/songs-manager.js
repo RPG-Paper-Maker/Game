@@ -18,19 +18,8 @@
 /** @class
 *   The manager for songs.
 */
-function SongsManager(musicPlayer, backgroundPlayer, musicEffects,
-                      soundsPlayers)
+function SongsManager()
 {
-    /*
-    this.musics = musicPlayer;
-    this.backgroundSounds = backgroundPlayer;
-    this.musicEffects = musicEffects;
-    this.sounds = soundsPlayers;
-    this.soundIndex = 0;
-    this.musicEffectStep = 0;
-    this.isProgressionMusicEnd = true;
-    this.isMusicNone = true;
-
     var l = RPM.countFields(SongKind) - 1;
     this.volumes = new Array(l);
     this.volumes[SongKind.Music] = 0;
@@ -44,54 +33,9 @@ function SongsManager(musicPlayer, backgroundPlayer, musicEffects,
     this.ends[SongKind.Music] = null;
     this.ends[SongKind.BackgroundSound] = null;
     this.ends[SongKind.MusicEffect] = null;
-
-    this.progressionMusic = null;*/
 }
 
 SongsManager.prototype = {
-
-    /** Get the player according to the song kind.
-    *   @param {SongKind} kind The kind of song.
-    *   @returns {Audio}
-    */
-    getPlayer: function(kind) {
-        /*
-        switch (kind) {
-        case SongKind.Music:
-            return this.musics;
-        case SongKind.BackgroundSound:
-            return this.backgroundSounds;
-        case SongKind.MusicEffect:
-            return this.musicEffects;
-        default:
-            return null;
-        }*/
-        return null;
-    },
-
-    // -------------------------------------------------------
-
-    /** Add songs on the playlist
-    *   @param {SongKind} kind The kind of song to add.
-    *   @param {SystemSong[]} songs The list of songs to add.
-    */
-    addSongs: function(kind, songs) {
-        /*
-        var player = this.getPlayer(kind);
-        if (!player)
-            return;
-
-        var song, i, l = songs.length;
-        var paths = new Array(l + 1);
-        for (i = 0; i < l; i++) {
-            song = songs[i];
-            paths[song.id === -1 ? 0 : song.id] = song.getPath(kind)[0];
-        }
-        player.playlist.addItems(paths);*/
-    },
-
-    // -------------------------------------------------------
-
     /** Play a song.
     *   @param {SongKind} kind The kind of song to add.
     *   @param {number} id The id of the song.

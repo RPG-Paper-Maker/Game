@@ -97,6 +97,7 @@ SystemPlaySong.prototype = {
     // -------------------------------------------------------
 
     playSong: function(start, volume) {
+        /*
         if (typeof start === 'undefined') {
             start = this.start ? this.start.getValue() : null;
         }
@@ -121,6 +122,12 @@ SystemPlaySong.prototype = {
         RPM.songsManager.playSong(this.kind, this.songID.getValue(), volume, start,
             this.end ? this.end.getValue() : null);
 
+        return 1;*/
+        let song = RPM.datasGame.songs.get(SongKind.Music, this.songID.getValue()).song;
+        if (song)
+        {
+            song.play();
+        }
         return 1;
     },
 
