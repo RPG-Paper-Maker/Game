@@ -187,7 +187,7 @@ RPM.loop = function()
             if (callback === null) 
             {
                 RPM.update();
-                callback = Game.$gameStack.top().callBackAfterLoading;
+                callback = RPM.gameStack.top().callBackAfterLoading;
                 if (callback === null) 
                 {
                     RPM.draw3D();

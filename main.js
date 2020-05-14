@@ -23,6 +23,7 @@ function createWindow () {
             nodeIntegration: true
         }
     });
+    //window.webContents.openDevTools();
     ipc.on('window-error', function(event, err) {
         let str = "";
         if (err != null) 
@@ -47,7 +48,6 @@ function createWindow () {
     })
     window.loadFile('index.html');
     window.removeMenu();
-    window.openDevTools()
 }
 
 app.whenReady().then(createWindow)

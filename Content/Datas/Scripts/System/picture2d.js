@@ -40,8 +40,14 @@ function Picture2D(path, callback, x, y, w, h) {
         this.callback = callback;
         this.checked = false;
         this.empty = false;
+        this.image = new Image();
+        this.image.onload = () => {
+            this.check();
+        }
+        this.image.src = this.path;
     } else {
         this.empty = true;
+        this.check();
     }
 }
 
@@ -90,9 +96,7 @@ Picture2D.prototype.check = function() {
         return true;
     } else
     {
-        this.image = nativeImage.createFromPath(path);
-        let size = image.getSize();
-        this.oW = size.width;
+        this.oW = this.image.width;
         this.oH = this.image.height;
         if (this.cover)
         {
@@ -100,15 +104,16 @@ Picture2D.prototype.check = function() {
             this.h = RPM.canvasHeight;
         } else if (this.stretch)
         {
-            this.w = RPM.getScreenX(size.width);
-            this.h = RPM.getScreenY(size.height);
+            this.w = RPM.getScreenX(this.image.width);
+            this.h = RPM.getScreenY(this.image.height);
         } else
         {
-            this.w = RPM.getScreenMinXY(size.width);
-            this.h = RPM.getScreenMinXY(size.height);
+            this.w = RPM.getScreenMinXY(this.image.width);
+            this.h = RPM.getScreenMinXY(this.image.height);
         }
-
-        this.callback.call(this);
+        if (this.callback) {
+            this.callback.call(this);
+        }
         this.checked = true;
         RPM.requestPaintHUD = true;
         return true;
@@ -118,7 +123,7 @@ Picture2D.prototype.check = function() {
 // -------------------------------------------------------
 
 Picture2D.prototype.destroy = function() {
-    RPM.canvasRendering.unloadImage(this.path);
+    Platform.canvasRendering.unloadImage(this.path);
 };
 
 // -------------------------------------------------------
@@ -204,7 +209,7 @@ Picture2D.prototype.draw = function(x, y, w, h, sx, sy, sw, sh, positionResize)
                 Platform.ctx.translate(x - (w / 2), y - (h / 2));
             }
         }
-        Platform.ctx.drawImage(this.path, sx, sy, sw, sh, 0, 0, w, h);
+        Platform.ctx.drawImage(this.image, sx, sy, sw, sh, 0, 0, w, h);
         Platform.ctx.globalAlpha = 1.0;
         Platform.ctx.restore();
     }

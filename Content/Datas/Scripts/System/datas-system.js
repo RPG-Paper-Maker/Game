@@ -61,8 +61,6 @@ DatasSystem.prototype = {
                 w = RPM.screenWidth;
                 h = RPM.screenHeight;
             }
-            w = 1000
-            h = 800
             Platform.setWindowSize(w, h);
             
             Platform.canvasHUD.width = w;

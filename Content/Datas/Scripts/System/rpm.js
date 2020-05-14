@@ -28,6 +28,7 @@ function RPM()
 // -------------------------------------------------------
 
 RPM.PATH_BR = "";
+RPM.ROOT_DIRECTORY = "";
 RPM.PATH_DATAS = "./Content/Datas/";
 RPM.FILE_MAPS = RPM.PATH_DATAS + "Maps/";
 RPM.FILE_MAP_INFOS = "/infos.json";
@@ -721,6 +722,7 @@ Tree.prototype = {
 *   @param {function} callback A callback function to excecute when the file is
 *   loaded.
 */
+RPM.LOL = 0;
 RPM.openFile = function(base, url, loading, callback)
 {
     const fs = require('fs');
@@ -729,7 +731,6 @@ RPM.openFile = function(base, url, loading, callback)
     {
         RPM.filesToLoad++;
     }
-    /*
     fs.readFile(url, function (e, data) {
         if (e) 
         {
@@ -742,7 +743,7 @@ RPM.openFile = function(base, url, loading, callback)
                 RPM.loadedFiles++;
             }
         }
-    });*/
+    });
 }
 
 RPM.openFile(null, RPM.PATH_SHADERS + "fix.vert", false, function(res) {

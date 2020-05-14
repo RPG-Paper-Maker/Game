@@ -65,6 +65,7 @@ SystemShape.prototype = {
     *   @param {Object} json Json object describing the object.
     */
     readJSON: function(json) {
+        this.id = json.id;
         this.name = json.name;
         this.isBR = json.br;
     },
@@ -72,16 +73,26 @@ SystemShape.prototype = {
     // -------------------------------------------------------
 
     loadObjectCustom: function() {
-        var that;
-
-        that = this;
-        RPM.filesToLoad++;
-        RPM.OBJ_LOADER.load(this.getPath(CustomShapeKind.OBJ)[0], function(
-            geometry)
+        if (this.id === -1)
         {
-            that.geometry = geometry;
-            RPM.loadedFiles++;
-        });
+            this.geometry = RPM.OBJ_LOADER.parse("");
+        } else 
+        {
+            var that;
+
+            that = this;
+            RPM.filesToLoad++;
+            RPM.LOL++;
+            console.log(RPM.LOL)
+            RPM.OBJ_LOADER.load(this.getPath(CustomShapeKind.OBJ)[0], function(
+                geometry)
+            {
+                that.geometry = geometry;
+                RPM.loadedFiles++;
+                RPM.LOL++;
+            console.log(RPM.LOL)
+            });
+        }
     },
 
     // -------------------------------------------------------

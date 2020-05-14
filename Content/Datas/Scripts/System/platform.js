@@ -11,7 +11,6 @@
 
 const ipc = require('electron').ipcRenderer;
 const console = require('electron').remote.getGlobal('console')
-const nativeImage = require('electron').nativeImage
 
 window.onerror = function (msg, url, line, column, error)
 {

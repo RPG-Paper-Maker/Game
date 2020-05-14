@@ -1,5 +1,5 @@
-document.write('<script src="Loaders/objLoader.js"></script>')
 document.write(`<script src="Content/Datas/Scripts/System/platform.js"></script>`);
+document.write('<script src="Loaders/objLoader.js"></script>')
 document.write(`<script src="Content/Datas/Scripts/System/enums.js"></script>`);
 document.write(`<script src="Content/Datas/Scripts/System/texture-several.js"></script>`);
 document.write(`<script src="Content/Datas/Scripts/System/songs-manager.js"></script>`);
