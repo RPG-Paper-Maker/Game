@@ -213,31 +213,31 @@ RPM.operators_numbers =
 *   The key events.
 */
 var KeyEvent = {
-    DOM_VK_CANCEL: Platform.DESKTOP ? 0 : 3,
-    DOM_VK_HELP: Platform.DESKTOP ? 0 : 6,
-    DOM_VK_BACK_SPACE: Platform.DESKTOP ? 16777219 : 8,
-    DOM_VK_TAB: Platform.DESKTOP ? 16777217 : 9,
-    DOM_VK_CLEAR: Platform.DESKTOP ? 0 : 12,
-    DOM_VK_RETURN: Platform.DESKTOP ? 16777220 : 13,
-    DOM_VK_ENTER: Platform.DESKTOP ? 16777221 : 14,
-    DOM_VK_SHIFT: Platform.DESKTOP ? 16777248 : 16,
-    DOM_VK_CONTROL: Platform.DESKTOP ? 16777249 : 17,
-    DOM_VK_ALT: Platform.DESKTOP ? 16777251 : 18,
-    DOM_VK_PAUSE: Platform.DESKTOP ? 16777224 : 19,
-    DOM_VK_CAPS_LOCK: Platform.DESKTOP ? 16777252 : 20,
-    DOM_VK_ESCAPE: Platform.DESKTOP ? 16777216 : 27,
+    DOM_VK_CANCEL: 3,
+    DOM_VK_HELP: 6,
+    DOM_VK_BACK_SPACE: 8,
+    DOM_VK_TAB: 9,
+    DOM_VK_CLEAR: 12,
+    DOM_VK_RETURN: 13,
+    DOM_VK_ENTER: 14,
+    DOM_VK_SHIFT: 16,
+    DOM_VK_CONTROL: 17,
+    DOM_VK_ALT: 18,
+    DOM_VK_PAUSE: 19,
+    DOM_VK_CAPS_LOCK: 20,
+    DOM_VK_ESCAPE: 27,
     DOM_VK_SPACE: 32,
-    DOM_VK_PAGE_UP: Platform.DESKTOP ? 16777238 : 33,
-    DOM_VK_PAGE_DOWN: Platform.DESKTOP ? 16777239 : 34,
-    DOM_VK_END: Platform.DESKTOP ? 16777233 : 35,
-    DOM_VK_HOME: Platform.DESKTOP ? 16777250 : 36,
-    DOM_VK_LEFT: Platform.DESKTOP ? 16777234 : 37,
-    DOM_VK_UP: Platform.DESKTOP ? 16777235 : 38,
-    DOM_VK_RIGHT: Platform.DESKTOP ? 16777236 : 39,
-    DOM_VK_DOWN: Platform.DESKTOP ? 16777237 : 40,
-    DOM_VK_PRINTSCREEN: Platform.DESKTOP ? 0 : 44,
-    DOM_VK_INSERT: Platform.DESKTOP ? 16777222 : 45,
-    DOM_VK_DELETE: Platform.DESKTOP ? 16777223 : 46,
+    DOM_VK_PAGE_UP: 33,
+    DOM_VK_PAGE_DOWN: 34,
+    DOM_VK_END: 35,
+    DOM_VK_HOME: 36,
+    DOM_VK_LEFT: 37,
+    DOM_VK_UP: 38,
+    DOM_VK_RIGHT: 39,
+    DOM_VK_DOWN: 40,
+    DOM_VK_PRINTSCREEN: 44,
+    DOM_VK_INSERT: 45,
+    DOM_VK_DELETE: 46,
     DOM_VK_0: 48,
     DOM_VK_1: 49,
     DOM_VK_2: 50,
@@ -286,47 +286,47 @@ var KeyEvent = {
     DOM_VK_NUMPAD7: 103,
     DOM_VK_NUMPAD8: 104,
     DOM_VK_NUMPAD9: 105,
-    DOM_VK_MULTIPLY: Platform.DESKTOP ? 42 : 106,
-    DOM_VK_ADD: Platform.DESKTOP ? 43 : 107,
-    DOM_VK_SEPARATOR: Platform.DESKTOP ? 124 : 108,
-    DOM_VK_SUBTRACT: Platform.DESKTOP ? 45 : 109,
-    DOM_VK_DECIMAL: Platform.DESKTOP ? 16777223 : 110,
-    DOM_VK_DIVIDE: Platform.DESKTOP ? 47 : 111,
-    DOM_VK_F1: Platform.DESKTOP ? 16777264 : 112,
-    DOM_VK_F2: Platform.DESKTOP ? 16777265 : 113,
-    DOM_VK_F3: Platform.DESKTOP ? 16777266 : 114,
-    DOM_VK_F4: Platform.DESKTOP ? 16777267 : 115,
-    DOM_VK_F5: Platform.DESKTOP ? 16777268 : 116,
-    DOM_VK_F6: Platform.DESKTOP ? 16777269 : 117,
-    DOM_VK_F7: Platform.DESKTOP ? 16777270 : 118,
-    DOM_VK_F8: Platform.DESKTOP ? 16777271 : 119,
-    DOM_VK_F9: Platform.DESKTOP ? 16777272 : 120,
-    DOM_VK_F10: Platform.DESKTOP ? 16777273 : 121,
-    DOM_VK_F11: Platform.DESKTOP ? 16777274 : 122,
-    DOM_VK_F12: Platform.DESKTOP ? 16777275 : 123,
-    DOM_VK_F13: Platform.DESKTOP ? 16777276 : 124,
-    DOM_VK_F14: Platform.DESKTOP ? 16777277 : 125,
-    DOM_VK_F15: Platform.DESKTOP ? 16777278 : 126,
-    DOM_VK_F16: Platform.DESKTOP ? 16777279 : 127,
-    DOM_VK_F17: Platform.DESKTOP ? 16777280 : 128,
-    DOM_VK_F18: Platform.DESKTOP ? 16777281 : 129,
-    DOM_VK_F19: Platform.DESKTOP ? 16777282 : 130,
-    DOM_VK_F20: Platform.DESKTOP ? 16777283 : 131,
-    DOM_VK_F21: Platform.DESKTOP ? 16777284 : 132,
-    DOM_VK_F22: Platform.DESKTOP ? 16777285 : 133,
-    DOM_VK_F23: Platform.DESKTOP ? 16777286 : 134,
-    DOM_VK_F24: Platform.DESKTOP ? 16777287 : 135,
-    DOM_VK_NUM_LOCK: Platform.DESKTOP ? 16777253 : 144,
-    DOM_VK_SCROLL_LOCK: Platform.DESKTOP ? 0 : 145,
-    DOM_VK_COMMA: Platform.DESKTOP ? 44 : 188,
-    DOM_VK_PERIOD: Platform.DESKTOP ? 0 : 190,
-    DOM_VK_SLASH: Platform.DESKTOP ? 47 : 191,
-    DOM_VK_BACK_QUOTE: Platform.DESKTOP ? 96 : 192,
-    DOM_VK_OPEN_BRACKET: Platform.DESKTOP ? 91 : 219,
-    DOM_VK_BACK_SLASH: Platform.DESKTOP ? 92 : 220,
-    DOM_VK_CLOSE_BRACKET: Platform.DESKTOP ? 93 : 221,
-    DOM_VK_QUOTE: Platform.DESKTOP ? 34 : 222,
-    DOM_VK_META: Platform.DESKTOP ? 0 : 224,
+    DOM_VK_MULTIPLY: 106,
+    DOM_VK_ADD: 107,
+    DOM_VK_SEPARATOR: 108,
+    DOM_VK_SUBTRACT: 109,
+    DOM_VK_DECIMAL: 110,
+    DOM_VK_DIVIDE: 111,
+    DOM_VK_F1: 112,
+    DOM_VK_F2: 113,
+    DOM_VK_F3: 114,
+    DOM_VK_F4: 115,
+    DOM_VK_F5: 116,
+    DOM_VK_F6: 117,
+    DOM_VK_F7: 118,
+    DOM_VK_F8: 119,
+    DOM_VK_F9: 120,
+    DOM_VK_F10: 121,
+    DOM_VK_F11: 122,
+    DOM_VK_F12: 123,
+    DOM_VK_F13: 124,
+    DOM_VK_F14: 125,
+    DOM_VK_F15: 126,
+    DOM_VK_F16: 127,
+    DOM_VK_F17: 128,
+    DOM_VK_F18: 129,
+    DOM_VK_F19: 130,
+    DOM_VK_F20: 131,
+    DOM_VK_F21: 132,
+    DOM_VK_F22: 133,
+    DOM_VK_F23: 134,
+    DOM_VK_F24: 135,
+    DOM_VK_NUM_LOCK: 144,
+    DOM_VK_SCROLL_LOCK: 145,
+    DOM_VK_COMMA: 188,
+    DOM_VK_PERIOD: 190,
+    DOM_VK_SLASH: 191,
+    DOM_VK_BACK_QUOTE: 192,
+    DOM_VK_OPEN_BRACKET: 219,
+    DOM_VK_BACK_SLASH: 220,
+    DOM_VK_CLOSE_BRACKET: 221,
+    DOM_VK_QUOTE: 222,
+    DOM_VK_META: 224,
     SQUARE: 178,
     AMPERSAND: 38,
     E_ACCENT_RIGHT: 201,
@@ -360,6 +360,129 @@ var KeyEvent = {
     ALT_GR: 16781571,
     LESS_THAN: 60,
     GREATER_THAN: 62,
+
+    qtToDOM: function(key)
+    {
+        switch (key) 
+        {
+        case 16777219:
+            return KeyEvent.DOM_VK_BACK_SPACE;
+        case 16777217:
+            return KeyEvent.DOM_VK_TAB;
+        case 16777220:
+            return KeyEvent.DOM_VK_RETURN;
+        case 16777221:
+            return KeyEvent.DOM_VK_ENTER;
+        case 16777248:
+            return KeyEvent.DOM_VK_SHIFT;
+        case 16777249:
+            return KeyEvent.DOM_VK_CONTROL;
+        case 16777251:
+            return KeyEvent.DOM_VK_ALT;
+        case 16777224:
+            return KeyEvent.DOM_VK_PAUSE;
+        case 16777252:
+            return KeyEvent.DOM_VK_CAPS_LOCK;
+        case 16777216:
+            return KeyEvent.DOM_VK_ESCAPE;
+        case 16777238:
+            return KeyEvent.DOM_VK_PAGE_UP;
+        case 16777239:
+            return KeyEvent.DOM_VK_PAGE_DOWN;
+        case 16777233:
+            return KeyEvent.DOM_VK_END;
+        case 16777250:
+            return KeyEvent.DOM_VK_HOME;
+        case 16777234:
+            return KeyEvent.DOM_VK_LEFT;
+        case 16777235:
+            return KeyEvent.DOM_VK_UP;
+        case 16777236:
+            return KeyEvent.DOM_VK_RIGHT;
+        case 16777237:
+            return KeyEvent.DOM_VK_DOWN;
+        case 16777222:
+            return KeyEvent.DOM_VK_INSERT;
+        case 16777223:
+            return KeyEvent.DOM_VK_DELETE;
+        case 42:
+            return KeyEvent.DOM_VK_MULTIPLY;
+        case 43:
+            return KeyEvent.DOM_VK_ADD;
+        case 124:
+            return KeyEvent.DOM_VK_SEPARATOR;
+        case 45:
+            return KeyEvent.DOM_VK_SUBTRACT;
+        case 16777223:
+            return KeyEvent.DOM_VK_DECIMAL;
+        case 47:
+            return KeyEvent.DOM_VK_DIVIDE;
+        case 16777264:
+            return KeyEvent.DOM_VK_F1;
+        case 16777265:
+            return KeyEvent.DOM_VK_F2;
+        case 16777266:
+            return KeyEvent.DOM_VK_F3;
+        case 16777267:
+            return KeyEvent.DOM_VK_F4;
+        case 16777268:
+            return KeyEvent.DOM_VK_F5;
+        case 16777269:
+            return KeyEvent.DOM_VK_F6;
+        case 16777270:
+            return KeyEvent.DOM_VK_F7;
+        case 16777271:
+            return KeyEvent.DOM_VK_F8;
+        case 16777272:
+            return KeyEvent.DOM_VK_F9;
+        case 16777273:
+            return KeyEvent.DOM_VK_F10;
+        case 16777274:
+            return KeyEvent.DOM_VK_F11;
+        case 16777275:
+            return KeyEvent.DOM_VK_F12;
+        case 16777276:
+            return KeyEvent.DOM_VK_F13;
+        case 16777277:
+            return KeyEvent.DOM_VK_F14;
+        case 16777278:
+            return KeyEvent.DOM_VK_F15;
+        case 16777279:
+            return KeyEvent.DOM_VK_F16;
+        case 16777280:
+            return KeyEvent.DOM_VK_F17;
+        case 16777281:
+            return KeyEvent.DOM_VK_F18;
+        case 16777282:
+            return KeyEvent.DOM_VK_F19;
+        case 16777283:
+            return KeyEvent.DOM_VK_F20;
+        case 16777284:
+            return KeyEvent.DOM_VK_F21;
+        case 16777285:
+            return KeyEvent.DOM_VK_F22;
+        case 16777286:
+            return KeyEvent.DOM_VK_F23;
+        case 16777287:
+            return KeyEvent.DOM_VK_F24;
+        case 16777253:
+            return KeyEvent.DOM_VK_NUM_LOCK;
+        case 44:
+            return KeyEvent.DOM_VK_COMMA;
+        case 96:
+            return KeyEvent.DOM_VK_BACK_QUOTE;
+        case 91:
+            return KeyEvent.DOM_VK_OPEN_BRACKET;
+        case 92:
+            return KeyEvent.DOM_VK_BACK_SLASH;
+        case 93:
+            return KeyEvent.DOM_VK_CLOSE_BRACKET;
+        case 34:
+            return KeyEvent.DOM_VK_QUOTE;
+        default:
+            return key;
+        }
+    },
 
     /** Check if the pressed key is a PAD number.
     *   @param {number} key The key ID.
@@ -596,7 +719,7 @@ var KeyEvent = {
             case KeyEvent.POUND:
                 return "£";
             case KeyEvent.DOLLAR:
-                return "RPM.";
+                return "$";
             case KeyEvent.YEN:
                 return "¤";
             case KeyEvent.U_GRAVE:
@@ -765,7 +888,7 @@ RPM.saveFile = function(url, obj)
     const fs = require('fs');
 
     fs.writeFile(url, JSON.stringify(obj), (e) => {
-        if (err)
+        if (e)
         {
             RPM.showError(e);
         }

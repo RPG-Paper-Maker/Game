@@ -65,10 +65,15 @@ RPM.update = function()
 
     // Repeat keypress as long as not blocking
     var continuePressed = true;
+    var key;
     for (var i = 0, l = RPM.keysPressed.length; i < l; i++){
-        continuePressed = onKeyPressedRepeat(RPM.keysPressed[i]);
-        if (!continuePressed)
-            break;
+        key = RPM.keysPressed[i];
+        if (key !== RPM.lastKeyPressed)
+        {
+            continuePressed = RPM.onKeyPressedRepeat(RPM.keysPressed[i]);
+            if (!continuePressed)
+                break;
+        }
     }
 
     // Update the top of the stack
@@ -213,8 +218,66 @@ RPM.loop = function()
     }
 }
 
-// Start!
+// -------------------------------------------------------
+//
+// INITIALIZATION
+//
+// -------------------------------------------------------
+
 RPM.initializeGL();
 RPM.initialize();
+
+// -------------------------------------------------------
+//
+// INPUTS
+//
+// -------------------------------------------------------
+
+document.addEventListener('keydown', function(event) {
+    if (RPM.datasGame.loaded && !RPM.isLoading() && RPM.gameStack
+        .displayingContent && !RPM.gameStack.top().callBackAfterLoading)
+    {
+        let key = event.keyCode;
+        // On pressing F12, quit game
+        if (key === KeyEvent.DOM_VK_F12)
+        {
+            Platform.quit();
+        }
+        // If not repeat, call simple press RPM event
+        if (!event.repeat)
+        {
+            RPM.keysPressed.push(key);
+            RPM.onKeyPressed(key);
+        }
+
+        // Remember last key pressed to not call again on update
+        RPM.lastKeyPressed = key;
+
+        // Also always call pressed and repeat RPM event
+        RPM.onKeyPressedAndRepeat(key);
+    }
+}, false);
+document.addEventListener('keyup', function(event) 
+{
+    if (RPM.datasGame.loaded && !RPM.isLoading() && RPM.gameStack
+        .displayingContent && !RPM.gameStack.top().callBackAfterLoading)
+    {
+        let key = event.key;
+        // Remove this key from pressed keys list
+        RPM.keysPressed.splice(RPM.keysPressed.indexOf(key), 1);
+
+        // Call release RPM event
+        RPM.onKeyReleased(key);
+    } else 
+    {
+        RPM.keysPressed = [];
+    }
+}, false);
+
+// -------------------------------------------------------
+//
+// START LOOP
+//
+// -------------------------------------------------------
 
 requestAnimationFrame(RPM.loop);

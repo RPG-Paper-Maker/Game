@@ -134,8 +134,11 @@ SystemPlaySong.prototype = {
     // -------------------------------------------------------
 
     playSound: function() {
-        RPM.songsManager.playSound(this.songID.getValue(), this.volume.getValue() /
-            100);
+        let song = RPM.datasGame.songs.get(SongKind.Sound, this.songID.getValue()).song;
+        if (song)
+        {
+            song.play();
+        }
     },
 
     // -------------------------------------------------------

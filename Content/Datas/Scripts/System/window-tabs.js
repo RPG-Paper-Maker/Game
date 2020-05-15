@@ -66,6 +66,8 @@ function WindowTabs(orientation, x, y, w, h, nbItemsMax, listContents,
         listCallBacks, currentSelectedIndex);
 }
 
+WindowTabs.startTime = new Date().getTime();
+
 WindowTabs.prototype = {
 
     updateContentSize: function(currentSelectedIndex) {
@@ -340,34 +342,40 @@ WindowTabs.prototype = {
     *   @returns {boolean} false if the other keys are blocked after it.
     */
     onKeyPressedAndRepeat: function(key) {
-        if (this.currentSelectedIndex !== -1) {
-            this.listWindows[this.currentSelectedIndex].selected = false;
-
-            if (this.orientation === OrientationWindow.Vertical) {
-                if (DatasKeyBoard.isKeyEqual(key, RPM.datasGame.keyBoard
-                    .menuControls.Down))
-                {
-                    WindowTabs.prototype.goDown.call(this);
-                } else if (DatasKeyBoard.isKeyEqual(key, RPM.datasGame.keyBoard
-                    .menuControls.Up))
-                {
-                    WindowTabs.prototype.goUp.call(this);
+        // Wait 50 ms for a slower update
+        var t = new Date().getTime();
+        if (t - WindowTabs.startTime >= 50)
+        {
+            WindowTabs.startTime = t;
+            if (this.currentSelectedIndex !== -1) {
+                this.listWindows[this.currentSelectedIndex].selected = false;
+    
+                if (this.orientation === OrientationWindow.Vertical) {
+                    if (DatasKeyBoard.isKeyEqual(key, RPM.datasGame.keyBoard
+                        .menuControls.Down))
+                    {
+                        WindowTabs.prototype.goDown.call(this);
+                    } else if (DatasKeyBoard.isKeyEqual(key, RPM.datasGame.keyBoard
+                        .menuControls.Up))
+                    {
+                        WindowTabs.prototype.goUp.call(this);
+                    }
+                } else {
+                    if (DatasKeyBoard.isKeyEqual(key, RPM.datasGame.keyBoard
+                        .menuControls.Right))
+                    {
+                        WindowTabs.prototype.goDown.call(this);
+                    }
+                    else if (DatasKeyBoard.isKeyEqual(key, RPM.datasGame.keyBoard
+                        .menuControls.Left))
+                    {
+                        WindowTabs.prototype.goUp.call(this);
+                    }
                 }
-            } else {
-                if (DatasKeyBoard.isKeyEqual(key, RPM.datasGame.keyBoard
-                    .menuControls.Right))
-                {
-                    WindowTabs.prototype.goDown.call(this);
-                }
-                else if (DatasKeyBoard.isKeyEqual(key, RPM.datasGame.keyBoard
-                    .menuControls.Left))
-                {
-                    WindowTabs.prototype.goUp.call(this);
-                }
+    
+                WindowTabs.prototype.selectCurrent.call(this);
             }
-
-            WindowTabs.prototype.selectCurrent.call(this);
-        }
+        } 
     },
 
     // -------------------------------------------------------

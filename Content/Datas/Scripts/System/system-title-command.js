@@ -93,7 +93,7 @@ SystemTitleCommand.prototype.showSettings = function() {
 /** Callback function for closing the window.
 */
 SystemTitleCommand.prototype.exit = function() {
-    quit();
+    Platform.quit();
 
     return true;
 }

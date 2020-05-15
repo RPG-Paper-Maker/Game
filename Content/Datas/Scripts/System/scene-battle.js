@@ -216,7 +216,7 @@ SceneBattle.prototype.isLose = function() {
 */
 SceneBattle.prototype.gameOver = function() {
     if (this.canGameOver) {
-        quit(); // TODO
+        Platform.quit(); // TODO
     } else {
         this.endBattle();
     }

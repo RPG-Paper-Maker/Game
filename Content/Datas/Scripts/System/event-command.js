@@ -464,7 +464,7 @@ EventCommandEndGame.prototype = {
     *   @returns {number} The number of node to pass.
     */
     update: function(currentState, object, state){
-        quit();
+        Platform.quit();
     },
 
     // -------------------------------------------------------
