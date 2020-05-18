@@ -927,17 +927,6 @@ RPM.createFont = function(fontSize, fontName, bold, italic) {
 
 // -------------------------------------------------------
 
-/** If a current game exists, add one second to the timer.
-*   @static
-*/
-RPM.updateTimer = function(){
-    if (RPM.game !== null){
-        RPM.game.playTime++;
-    }
-}
-
-// -------------------------------------------------------
-
 /** Describe a javascript object.
 *   @static
 *   @param {Object} obj The javascript object.

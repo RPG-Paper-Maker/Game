@@ -71,7 +71,6 @@ Game.prototype = {
     /** Initialize a default game.
     */
     initializeDefault: function(){
-        this.playTime = 0;
         this.teamHeroes = [];
         this.reserveHeroes = [];
         this.hiddenHeroes = [];
@@ -88,6 +87,7 @@ Game.prototype = {
                                                CharacterKind.Hero, 1, 1, 1);
         this.mapsDatas = {};
         this.hero.initializeProperties();
+        this.playTime = new Chrono(0);
     },
 
     // -------------------------------------------------------
@@ -132,7 +132,7 @@ Game.prototype = {
     */
     read: function(slot, json){
         this.currentSlot = slot;
-        this.playTime = json.t;
+        this.playTime = new Chrono(json.t);
         this.charactersInstances = json.inst;
         this.variables = json.vars;
 
@@ -227,7 +227,7 @@ Game.prototype = {
             var jsonList = JSON.parse(res);
             jsonList[slot - 1] =
             {
-                t: this.playTime,
+                t: this.playTime.time,
                 th: teamHeroes,
                 sh: reserveHeroes,
                 hh: hiddenHeroes,

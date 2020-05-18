@@ -285,7 +285,7 @@ SongsManager.prototype = {
                 if (song.volume() === 0) 
                 {
                     song.stop();
-                } else if (!this.isMusicNone) 
+                } else if (!this.isMusicNone && !song.playing()) 
                 {
                     song.play();
                 }

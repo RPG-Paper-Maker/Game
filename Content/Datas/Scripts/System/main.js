@@ -60,6 +60,12 @@ RPM.resizeGL = function(canvas)
 */
 RPM.update = function()
 {
+    // Update game timer
+    if (RPM.game)
+    {
+        RPM.game.playTime.update();
+    }
+
     // Update songs manager
     RPM.songsManager.update();
 

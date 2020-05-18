@@ -416,25 +416,24 @@ SystemTileset.prototype = {
     loadTextureWall: function(texture, pathLocal, picture, id) {
         var callback = function() {
             var context = Platform.canvasRendering.getContext("2d");
-            var img = context.createImageData(this.image);
 
             // Update picture infos for collisions
-            picture.width = Math.floor(img.width / RPM.SQUARE_SIZE);
-            picture.height = Math.floor(img.height / RPM.SQUARE_SIZE);
+            picture.width = Math.floor(this.image.width / RPM.SQUARE_SIZE);
+            picture.height = Math.floor(this.image.height / RPM.SQUARE_SIZE);
 
             context.clearRect(0, 0, Platform.canvasRendering.width,
                               Platform.canvasRendering.height);
-            Platform.canvasRendering.width = img.width + RPM.SQUARE_SIZE;
-            Platform.canvasRendering.height = img.height;
-            context.drawImage(pathLocal, 0, 0);
+            Platform.canvasRendering.width = this.image.width + RPM.SQUARE_SIZE;
+            Platform.canvasRendering.height = this.image.height;
+            context.drawImage(this.image, 0, 0);
             var left = context.getImageData(0, 0, Math.floor(RPM.SQUARE_SIZE / 2),
-                img.height);
-            var right = context.getImageData(img.width - Math.floor(
-                RPM.SQUARE_SIZE / 2), 0, Math.floor(RPM.SQUARE_SIZE / 2), img.height);
+                this.image.height);
+            var right = context.getImageData(this.image.width - Math.floor(
+                RPM.SQUARE_SIZE / 2), 0, Math.floor(RPM.SQUARE_SIZE / 2), this.image.height);
             try
             {
-                context.drawImage(left, img.width, 0);
-                context.drawImage(right, img.width + Math.floor(RPM.SQUARE_SIZE / 2
+                context.putImageData(left, this.image.width, 0);
+                context.putImageData(right, this.image.width + Math.floor(RPM.SQUARE_SIZE / 2
                     ), 0);
             } catch (e)
             {
@@ -449,10 +448,7 @@ SystemTileset.prototype = {
             image.src = Platform.canvasRendering.toDataURL();
         };
 
-        if (Platform.canvasRendering.isImageLoaded(pathLocal))
-            callback.call(this);
-        else
-            var pic = new Picture2D(pathLocal, callback);
+        var pic = new Picture2D(pathLocal, callback);
     },
 
     // -------------------------------------------------------
@@ -528,7 +524,7 @@ SystemTileset.prototype = {
     loadTextureMountain: function(textureMountain, texture, picture, context,
         offset, id)
     {
-        var i, paths, path, pathLocal, that, result, callback, point, img, width,
+        var i, paths, path, pathLocal, that, result, callback, point, width,
             height, size, pic;
 
         RPM.filesToLoad++;
@@ -542,9 +538,6 @@ SystemTileset.prototype = {
 
         callback = function() {
             RPM.loadedFiles++;
-            if (picture) {
-                img = context.createImageData(this.image);
-            }
             width = 3;
             height = 3;
             size = 9;
@@ -563,7 +556,7 @@ SystemTileset.prototype = {
                     textureMountain.setBegin(id, point);
                 }
                 if (picture) {
-                    that.paintPictureMountain(context, pathLocal, img, offset,
+                    that.paintPictureMountain(context, pathLocal, this.image, offset,
                         point, id);
                 }
 
@@ -585,7 +578,7 @@ SystemTileset.prototype = {
             result.push(offset);
         };
 
-        if (!picture || Platform.canvasRendering.isImageLoaded(pathLocal)) {
+        if (!picture) {
             callback.call(this);
         } else {
             pic = new Picture2D(pathLocal, callback);
@@ -606,36 +599,36 @@ SystemTileset.prototype = {
         sDiv = Math.round(RPM.SQUARE_SIZE / 2);
 
         // Draw original image
-        context.drawImage(pathLocal, 0, y);
+        context.drawImage(img, 0, y);
 
         // Add left/right autos
         try {
             for (i = 0, l = 3; i < l; i++) {
-                context.drawImage(pathLocal, 0, (i * RPM.SQUARE_SIZE), sDiv,
+                context.drawImage(img, 0, (i * RPM.SQUARE_SIZE), sDiv,
                     RPM.SQUARE_SIZE, sourceSize, y + (i * RPM.SQUARE_SIZE), sDiv,
                     RPM.SQUARE_SIZE);
-                context.drawImage(pathLocal, sourceSize - sDiv, (i * RPM.SQUARE_SIZE),
+                context.drawImage(img, sourceSize - sDiv, (i * RPM.SQUARE_SIZE),
                     sDiv, RPM.SQUARE_SIZE, sourceSize + sDiv, y + (i * RPM.SQUARE_SIZE),
                     sDiv, RPM.SQUARE_SIZE);
             }
 
             // Add top/bot autos
             for (i = 0, l = 3; i < l; i++) {
-                context.drawImage(pathLocal, i * RPM.SQUARE_SIZE, 0, RPM.SQUARE_SIZE, sDiv
+                context.drawImage(img, i * RPM.SQUARE_SIZE, 0, RPM.SQUARE_SIZE, sDiv
                     , i * RPM.SQUARE_SIZE, y + sourceSize, RPM.SQUARE_SIZE, sDiv);
-                context.drawImage(pathLocal, i * RPM.SQUARE_SIZE, sourceSize - sDiv,
+                context.drawImage(img, i * RPM.SQUARE_SIZE, sourceSize - sDiv,
                     RPM.SQUARE_SIZE, sDiv, i * RPM.SQUARE_SIZE, y + sourceSize + sDiv,
                     RPM.SQUARE_SIZE, sDiv);
             }
 
             // Add all sides autos
-            context.drawImage(pathLocal, 0, 0, sDiv, sDiv, sourceSize, y +
+            context.drawImage(img, 0, 0, sDiv, sDiv, sourceSize, y +
                 sourceSize, sDiv, sDiv);
-            context.drawImage(pathLocal, sourceSize - sDiv, 0, sDiv, sDiv,
+            context.drawImage(img, sourceSize - sDiv, 0, sDiv, sDiv,
                 sourceSize + sDiv, y + sourceSize, sDiv, sDiv);
-            context.drawImage(pathLocal, 0, sourceSize - sDiv, sDiv, sDiv,
+            context.drawImage(img, 0, sourceSize - sDiv, sDiv, sDiv,
                 sourceSize, y + sourceSize + sDiv, sDiv, sDiv);
-            context.drawImage(pathLocal, sourceSize - sDiv, sourceSize - sDiv, sDiv,
+            context.drawImage(img, sourceSize - sDiv, sourceSize - sDiv, sDiv,
                 sDiv, sourceSize + sDiv, y + sourceSize + sDiv, sDiv, sDiv);
         } catch (e)
         {

@@ -56,7 +56,9 @@ SceneLoadGame.prototype = {
 
                 // Stop video if existing
                 if (!RPM.datasGame.titlescreenGameover.isTitleBackgroundVideo) {
-                    RPM.canvasVideos.stop();
+                    Platform.canvasVideos.classList.add("hidden");
+                    Platform.canvasVideos.pause();
+                    Platform.canvasVideos.src = "";
                 }
 
                 // Pop load and title screen from the stack

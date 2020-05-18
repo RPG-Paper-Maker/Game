@@ -32,7 +32,7 @@ function GraphicTimeCurrencies() {
     }
 
     // Time
-    this.time = RPM.game.playTime;
+    this.time = RPM.game.playTime.getSeconds();
     this.graphicPlayTime = new GraphicText(RPM.getStringDate(this.time), { align
         : Align.Right });
 }
@@ -74,8 +74,8 @@ GraphicTimeCurrencies.prototype = {
     // -------------------------------------------------------
 
     update: function() {
-        if (RPM.game.playTime !== this.time) {
-            this.graphicPlayTime.setText(RPM.getStringDate(RPM.game.playTime));
+        if (RPM.game.playTime.getSeconds() !== this.time) {
+            this.graphicPlayTime.setText(RPM.getStringDate(RPM.game.playTime.getSeconds()));
         }
     },
 

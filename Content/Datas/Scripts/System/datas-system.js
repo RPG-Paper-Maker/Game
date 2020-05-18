@@ -71,7 +71,7 @@ DatasSystem.prototype = {
             RPM.canvasHeight = h;
             RPM.windowX = RPM.canvasWidth / RPM.SCREEN_X;
             RPM.windowY = RPM.canvasHeight / RPM.SCREEN_Y;
-            RPM.resizeGL(RPM.canvas3D);
+            RPM.resizeGL(Platform.canvas3D);
             RPM.requestPaintHUD = true;
 
             // Other numbers
