@@ -157,8 +157,9 @@ SceneBattle.prototype.initializeWindowCommands = function() {
 
 SceneBattle.prototype.initializeMusics = function() {
     SceneBattle.musicMap = SystemPlaySong.currentPlayingMusic;
-    SceneBattle.musicMapTime = RPM.songsManager.getPlayer(SongKind.Music).position
-        / RPM.ONE_SECOND_MILLI;
+    let song = RPM.songsManager.currentSong[SongKind.Music];
+    SceneBattle.musicMapTime = song === null ? 0 : song.seek() / RPM
+        .ONE_SECOND_MILLI;
     RPM.datasGame.battleSystem.battleMusic.playSong();
 };
 

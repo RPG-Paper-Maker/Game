@@ -61,7 +61,10 @@ DatasSongs.prototype = {
                         id = jsonSong.id;
                         var song = new SystemSong();
                         song.readJSON(jsonSong);
-                        song.load(k);
+                        if (k !== SongKind.Sound)
+                        {
+                            song.load(k);
+                        }
 
                         if (id === -1)
                             id = 0;

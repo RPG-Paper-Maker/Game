@@ -97,7 +97,6 @@ SystemPlaySong.prototype = {
     // -------------------------------------------------------
 
     playSong: function(start, volume) {
-        /*
         if (typeof start === 'undefined') {
             start = this.start ? this.start.getValue() : null;
         }
@@ -122,29 +121,14 @@ SystemPlaySong.prototype = {
         RPM.songsManager.playSong(this.kind, this.songID.getValue(), volume, start,
             this.end ? this.end.getValue() : null);
 
-        return 1;*/
-        let song = RPM.datasGame.songs.get(SongKind.Music, this.songID.getValue());
-        if (song)
-        {
-            song = song.song;
-            if (song)
-            {
-                song.volume(this.volume.getValue() / 100);
-                song.play();
-            }
-        }
         return 1;
     },
 
     // -------------------------------------------------------
 
     playSound: function() {
-        let song = RPM.datasGame.songs.get(SongKind.Sound, this.songID.getValue()).song;
-        if (song)
-        {
-            song.volume(this.volume.getValue() / 100);
-            song.play();
-        }
+        RPM.songsManager.playSound(this.songID.getValue(), this.volume.getValue() /
+            100);
     },
 
     // -------------------------------------------------------

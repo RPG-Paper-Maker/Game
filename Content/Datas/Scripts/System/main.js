@@ -22,6 +22,7 @@
 */
 RPM.initialize = function()
 {
+    RPM.songsManager = new SongsManager();
     RPM.settings = new Settings();
     RPM.gameStack = new GameStack();
 }

@@ -94,7 +94,8 @@ SystemSong.prototype = {
         if (this.id !== -1)
         {
             this.song = new Howl({
-                src: [this.getPath(kind)[0]]
+                src: [this.getPath(kind)[0]],
+                loop: kind !== SongKind.MusicEffect
             });
         }
     }
