@@ -22,7 +22,6 @@
 */
 RPM.initialize = function()
 {
-    RPM.songsManager = new SongsManager();
     RPM.settings = new Settings();
     RPM.gameStack = new GameStack();
 }
@@ -34,9 +33,9 @@ RPM.initialize = function()
 RPM.initializeGL = function()
 {
     // Create the renderer
-    RPM.renderer = new THREE.WebGLRenderer();
-    RPM.renderer.autoClear = false;
+    RPM.renderer = new THREE.WebGLRenderer({antialias: false, alpha: true});
     RPM.renderer.setSize(RPM.canvasWidth, RPM.canvasHeight);
+    Platform.canvas3D.appendChild(RPM.renderer.domElement);
 }
 
 // -------------------------------------------------------
@@ -68,11 +67,10 @@ RPM.update = function()
     var key;
     for (var i = 0, l = RPM.keysPressed.length; i < l; i++){
         key = RPM.keysPressed[i];
-        if (key !== RPM.lastKeyPressed)
+        continuePressed = RPM.onKeyPressedRepeat(RPM.keysPressed[i]);
+        if (!continuePressed)
         {
-            continuePressed = RPM.onKeyPressedRepeat(RPM.keysPressed[i]);
-            if (!continuePressed)
-                break;
+            break;
         }
     }
 
@@ -246,12 +244,12 @@ document.addEventListener('keydown', function(event) {
         // If not repeat, call simple press RPM event
         if (!event.repeat)
         {
-            RPM.keysPressed.push(key);
-            RPM.onKeyPressed(key);
+            if (RPM.keysPressed.indexOf(key) === -1)
+            {
+                RPM.keysPressed.push(key);
+                RPM.onKeyPressed(key);
+            }
         }
-
-        // Remember last key pressed to not call again on update
-        RPM.lastKeyPressed = key;
 
         // Also always call pressed and repeat RPM event
         RPM.onKeyPressedAndRepeat(key);
@@ -262,7 +260,7 @@ document.addEventListener('keyup', function(event)
     if (RPM.datasGame.loaded && !RPM.isLoading() && RPM.gameStack
         .displayingContent && !RPM.gameStack.top().callBackAfterLoading)
     {
-        let key = event.key;
+        let key = event.keyCode;
         // Remove this key from pressed keys list
         RPM.keysPressed.splice(RPM.keysPressed.indexOf(key), 1);
 

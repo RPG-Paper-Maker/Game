@@ -35,7 +35,7 @@ function SceneTitleScreen() {
             .titlescreenGameover.titleBackgroundImageID, PictureKind.TitleScreen);
         this.pictureBackground.cover = true;
     } else {
-
+        Platform.canvasVideos.classList.remove('hidden');
         Platform.canvasVideos.src = RPM.datasGame.videos.list[RPM.datasGame
             .titlescreenGameover.titleBackgroundVideoID].getPath()[1];
         Platform.canvasVideos.play();

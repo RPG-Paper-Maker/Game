@@ -30,7 +30,6 @@
 */
 function GraphicPlayer(gamePlayer, reverse) {
     var character, cl, levelStat, expStat, id, statistic, textName, text, c, txt;
-    var context;
 
     this.gamePlayer = gamePlayer;
     this.reverse = reverse;
@@ -52,7 +51,6 @@ function GraphicPlayer(gamePlayer, reverse) {
         { fontSize: RPM.MEDIUM_FONT_SIZE });
 
     // Adding stats
-    context = RPM.canvasHUD.getContext('2d');
     this.listStatsNames = [];
     this.listStats = [];
     this.maxStatNamesLength = 0;
@@ -68,9 +66,9 @@ function GraphicPlayer(gamePlayer, reverse) {
             // Only display bars
             if (!statistic.isFix) {
                 textName = new GraphicText(statistic.name + ":");
-                context.font = textName.font;
-                textName.updateContextFont(context);
-                c = context.measureText(textName.text).width;
+                Platform.ctx.font = textName.font;
+                textName.updateContextFont(Platform.ctx);
+                c = Platform.ctx.measureText(textName.text).width;
                 if (c > this.maxStatNamesLength) {
                     this.maxStatNamesLength = c;
                 }
@@ -79,7 +77,7 @@ function GraphicPlayer(gamePlayer, reverse) {
                 if (!statistic.isFix)
                     txt += "/" + gamePlayer[statistic.getMaxAbbreviation()];
                 text = new GraphicText(txt);
-                c = context.measureText(text.text).width;
+                c = Platform.ctx.measureText(text.text).width;
                 if (c > this.maxStatNamesLength) {
                     this.maxStatLength = c;
                 }

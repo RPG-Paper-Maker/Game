@@ -157,7 +157,7 @@ RPM.COLOR_BLACK = SystemColor.createColor(0, 0, 0);
 //  OTHERS
 // -------------------------------------------------------
 
-RPM.that = this;
+$that = this;
 RPM.elapsedTime = 0;
 RPM.averageElapsedTime = 0;
 RPM.lastUpdateTime = new Date().getTime();
@@ -1007,9 +1007,9 @@ RPM.generateMapName = function(id){
 *   @returns {number}
 */
 RPM.positionJSONToIndex = function(position){
-    return (position[0] % RPM.RPM.PORTION_SIZE) + (RPM.mod(position[1], RPM
-        .RPM.PORTION_SIZE) * RPM.RPM.PORTION_SIZE) + ((position[3] % RPM
-        .RPM.PORTION_SIZE) * RPM.RPM.PORTION_SIZE * RPM.RPM.PORTION_SIZE);
+    return (position[0] % RPM.PORTION_SIZE) + (RPM.mod(position[1], RPM
+        .PORTION_SIZE) * RPM.PORTION_SIZE) + ((position[3] % RPM
+        .PORTION_SIZE) * RPM.PORTION_SIZE * RPM.PORTION_SIZE);
 }
 
 // -------------------------------------------------------
@@ -1020,9 +1020,9 @@ RPM.positionJSONToIndex = function(position){
 *   @returns {number}
 */
 RPM.positionToIndex = function(position) {
-    return (position[0] % RPM.RPM.PORTION_SIZE) + (RPM.mod(position[1], RPM
-        .RPM.PORTION_SIZE) * RPM.RPM.PORTION_SIZE) + ((position[2] % RPM.RPM.PORTION_SIZE
-        ) * RPM.RPM.PORTION_SIZE * RPM.RPM.PORTION_SIZE);
+    return (position[0] % RPM.PORTION_SIZE) + (RPM.mod(position[1], RPM
+        .PORTION_SIZE) * RPM.PORTION_SIZE) + ((position[2] % RPM.PORTION_SIZE
+        ) * RPM.PORTION_SIZE * RPM.PORTION_SIZE);
 }
 
 // -------------------------------------------------------
@@ -1507,14 +1507,14 @@ RPM.variance = function(value, variance) {
 // -------------------------------------------------------
 
 RPM.evaluateFormula = function(formula, user, target, damage) {
-    return new Function("u", "t", "damage", "RPM.that", "return " + formula)(user,
-        target, damage, RPM.that);
+    return new Function("u", "t", "damage", "$that", "return " + formula)(user,
+        target, damage, $that);
 };
 
 // -------------------------------------------------------
 
 RPM.evaluateScript = function(script) {
-    return new Function("RPM.that", script)(RPM.that);
+    return new Function("$that", script)($that);
 };
 
 // -------------------------------------------------------

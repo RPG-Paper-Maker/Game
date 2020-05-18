@@ -54,9 +54,10 @@ SystemTitleCommand.prototype.getAction = function() {
 */
 SystemTitleCommand.prototype.startNewGame = function() {
     // Stop video if existing
-    if (RPM.datasGame.titlescreenGameover.isTitleBackgroundVideo) {
-        Platform.canvasVideos.stop();
+    if (!RPM.datasGame.titlescreenGameover.isTitleBackgroundImage) {
         Platform.canvasVideos.classList.add("hidden");
+        Platform.canvasVideos.pause();
+        Platform.canvasVideos.src = "";
     }
 
     // Create a new game

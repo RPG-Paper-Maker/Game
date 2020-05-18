@@ -171,7 +171,7 @@ SystemValue.readOrDefaultDatabase = function(json) {
         return value;
     }
 
-    return SystemValue.createValue(PrimitiveValueKind.Database, 1);
+    return SystemValue.createValue(PrimitiveValueKind.DataBase, 1);
 }
 
 // -------------------------------------------------------
