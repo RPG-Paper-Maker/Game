@@ -32,6 +32,7 @@ function Platform()
 
 Platform.canvas3D = document.getElementById('3d');
 Platform.canvasHUD = document.getElementById('hud');
+Platform.canvasVideos = document.getElementById('videoContainer');
 Platform.canvasRendering = document.getElementById('rendering');
 Platform.ctx = Platform.canvasHUD.getContext('2d');
 Platform.DESKTOP = true;

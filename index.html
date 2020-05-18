@@ -1,15 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, default-src 'self'">
+		<meta charset='utf-8'>
+		<meta name='viewport' content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, default-src 'self'">
 		<style>
 			body {
 				margin: 0;
 				padding: 0;
 				overflow: hidden;
 			}
+			#videoContainer {
+				margin: 0;
+				padding: 0;
+				overflow: auto;
+				position: absolute;
+			}
 			#hud {
+				position: absolute;
 				margin: 0;
 				padding: 0;
 			}
@@ -18,16 +25,19 @@
 				overflow: hidden;
 				background-color: green;
 			}
+			.hidden {
+				display: none;
+			}
 		</style>
 	</head>
 	<body>
-		<div id="3d"></div>
-		<canvas id="hud" width="640px" height="480px"></canvas>
-		<canvas id="rendering" width="4096px" height="4096px"></canvas>
-		<script src="vendor/three.min.js"></script>
-		<script src="vendor/howler.min.js"></script>
-		<script src="vendor/mousetrap.min.js"></script>
-		<script src="./includes.js"></script>
+		<div id='3d'></div>
+		<video id='videoContainer' height='480px'></video>
+		<canvas id='hud' width='640px' height='480px'></canvas>
+		<canvas id='rendering' width='4096px' height='4096px'></canvas>
+		<script src='vendor/three.min.js'></script>
+		<script src='vendor/howler.min.js'></script>
+		<script src='./includes.js'></script>
 		<script>
 			
 

@@ -123,10 +123,15 @@ SystemPlaySong.prototype = {
             this.end ? this.end.getValue() : null);
 
         return 1;*/
-        let song = RPM.datasGame.songs.get(SongKind.Music, this.songID.getValue()).song;
+        let song = RPM.datasGame.songs.get(SongKind.Music, this.songID.getValue());
         if (song)
         {
-            song.play();
+            song = song.song;
+            if (song)
+            {
+                song.volume(this.volume.getValue() / 100);
+                song.play();
+            }
         }
         return 1;
     },
@@ -137,6 +142,7 @@ SystemPlaySong.prototype = {
         let song = RPM.datasGame.songs.get(SongKind.Sound, this.songID.getValue()).song;
         if (song)
         {
+            song.volume(this.volume.getValue() / 100);
             song.play();
         }
     },

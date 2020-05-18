@@ -43,7 +43,6 @@ SystemKeyBoard.prototype = {
                 list[j] = KeyEvent.qtToDOM(list[j]);
             }
         }
-        console.log(this.sc)
     },
 
     // -------------------------------------------------------

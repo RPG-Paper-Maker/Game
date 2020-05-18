@@ -36,9 +36,9 @@ function SceneTitleScreen() {
         this.pictureBackground.cover = true;
     } else {
 
-        RPM.canvasVideos.source = RPM.datasGame.videos.list[RPM.datasGame
+        Platform.canvasVideos.src = RPM.datasGame.videos.list[RPM.datasGame
             .titlescreenGameover.titleBackgroundVideoID].getPath()[1];
-        RPM.canvasVideos.play();
+        Platform.canvasVideos.play();
     }
 
     // Windows
