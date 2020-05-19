@@ -61,12 +61,11 @@ function WindowTabs(orientation, x, y, w, h, nbItemsMax, listContents,
     this.nbItemsMax = nbItemsMax;
     this.padding = padding;
     this.bordersInsideVisible = bordersInsideVisible;
+    this.startTime = new Date().getTime();
 
     WindowTabs.prototype.setContentsCallbacks.call(this, listContents,
         listCallBacks, currentSelectedIndex);
 }
-
-WindowTabs.startTime = new Date().getTime();
 
 WindowTabs.prototype = {
 
@@ -344,9 +343,9 @@ WindowTabs.prototype = {
     onKeyPressedAndRepeat: function(key) {
         // Wait 50 ms for a slower update
         var t = new Date().getTime();
-        if (t - WindowTabs.startTime >= 50)
+        if (t - this.startTime >= 50)
         {
-            WindowTabs.startTime = t;
+            this.startTime = t;
             if (this.currentSelectedIndex !== -1) {
                 this.listWindows[this.currentSelectedIndex].selected = false;
     

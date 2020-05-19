@@ -282,7 +282,6 @@ SceneMenuEquip.prototype = {
     // -------------------------------------------------------
 
     onKeyPressedAndRepeat: function(key){
-
         // Tab
         var indexTab = this.windowChoicesTabs.currentSelectedIndex;
         this.windowChoicesTabs.onKeyPressedAndRepeat(key);
