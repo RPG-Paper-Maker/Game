@@ -9,8 +9,9 @@
         http://rpg-paper-maker.com/index.php/eula.
 */
 
+const remote = require('electron').remote;
 const ipc = require('electron').ipcRenderer;
-const console = require('electron').remote.getGlobal('console')
+const console = remote.getGlobal('console')
 
 window.onerror = function (msg, url, line, column, error)
 {
@@ -28,6 +29,14 @@ window.onerror = function (msg, url, line, column, error)
 function Platform()
 {
 
+}
+
+if (remote.process.argv[2] == '--dev')
+{
+    Platform.ROOT_DIRECTORY = ".";
+} else 
+{
+    Platform.ROOT_DIRECTORY = "./resources/app";
 }
 
 Platform.canvas3D = document.getElementById('three-d');

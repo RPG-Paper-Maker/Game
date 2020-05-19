@@ -28,8 +28,8 @@ function RPM()
 // -------------------------------------------------------
 
 RPM.PATH_BR = "";
-RPM.ROOT_DIRECTORY = "";
-RPM.PATH_DATAS = "./Content/Datas/";
+RPM.ROOT_DIRECTORY_LOCAL = "."
+RPM.PATH_DATAS = Platform.ROOT_DIRECTORY + "/Content/Datas/";
 RPM.FILE_MAPS = RPM.PATH_DATAS + "Maps/";
 RPM.FILE_MAP_INFOS = "/infos.json";
 RPM.FILE_MAP_OBJECTS = "/objects.json";
@@ -56,8 +56,8 @@ RPM.FILE_VARIABLES = RPM.PATH_DATAS + "variables.json";
 RPM.FILE_SETTINGS = RPM.PATH_DATAS + "settings.json";
 RPM.FILE_SAVE = RPM.PATH_DATAS + "saves.json";
 RPM.FILE_ANIMATIONS = RPM.PATH_DATAS + "animations.json";
-RPM.PATH_PICTURES = "Content/Images";
-RPM.PATH_VIDEOS = "Content/Videos";
+RPM.PATH_PICTURES = "/Content/Images";
+RPM.PATH_VIDEOS = "/Content/Videos";
 RPM.PATH_HUD = RPM.PATH_PICTURES + "/HUD/";
 RPM.PATH_TEXTURES2D = RPM.PATH_PICTURES + "/Textures2D/";
 RPM.PATH_BARS = RPM.PATH_HUD + "Bars";
@@ -75,12 +75,12 @@ RPM.PATH_WALLS = RPM.PATH_TEXTURES2D + "Walls";
 RPM.PATH_BATTLERS = RPM.PATH_TEXTURES2D + "Battlers";
 RPM.PATH_OBJECTS_3D = RPM.PATH_TEXTURES2D + "Objects3D";
 RPM.PATH_MOUNTAINS = RPM.PATH_TEXTURES2D + "Mountains";
-RPM.PATH_SONGS = "Content/Songs/";
+RPM.PATH_SONGS = "/Content/Songs/";
 RPM.PATH_MUSICS = RPM.PATH_SONGS + "Musics";
 RPM.PATH_BACKGROUND_SOUNDS = RPM.PATH_SONGS + "BackgroundSounds";
 RPM.PATH_SOUNDS = RPM.PATH_SONGS + "Sounds";
 RPM.PATH_MUSIC_EFFECTS = RPM.PATH_SONGS + "MusicEffects";
-RPM.PATH_SHAPES = "Content/Shapes/";
+RPM.PATH_SHAPES = "/Content/Shapes/";
 RPM.PATH_OBJ = RPM.PATH_SHAPES + "OBJ";
 RPM.PATH_MTL = RPM.PATH_SHAPES + "MTL";
 RPM.PATH_OBJ_COLLISIONS = RPM.PATH_SHAPES + "Collisions";

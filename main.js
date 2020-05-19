@@ -19,6 +19,7 @@ function createWindow () {
     window = new BrowserWindow({
         width: 640,
         height: 480,
+        resizable: false,
         webPreferences: {
             nodeIntegration: true
         }
@@ -43,7 +44,7 @@ function createWindow () {
         window.setTitle(title);
     })
     ipc.on('change-window-size', function(event, w, h) {
-        window.setSize(w, h);
+        window.setContentSize(w, h);
         window.center();
     })
     window.loadFile('index.html');
@@ -51,6 +52,8 @@ function createWindow () {
 }
 
 app.whenReady().then(createWindow)
+app.commandLine.appendSwitch('high-dpi-support', 'true');
+app.commandLine.appendSwitch('force-device-scale-factor', '1');
 
 // Mac OS keep active 
 app.on('window-all-closed', () => {

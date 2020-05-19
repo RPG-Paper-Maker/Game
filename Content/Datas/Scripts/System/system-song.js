@@ -29,8 +29,8 @@ function SystemSong(){
 *   @returns {string}
 */
 SystemSong.getFolder = function(kind, isBR){
-    var folder = isBR ? RPM.PATH_BR : RPM.ROOT_DIRECTORY;
-    var folderLocal = isBR ? RPM.PATH_BR : RPM.ROOT_DIRECTORY;
+    var folder = isBR ? RPM.PATH_BR : RPM.ROOT_DIRECTORY_LOCAL;
+    var folderLocal = isBR ? RPM.PATH_BR : RPM.ROOT_DIRECTORY_LOCAL;
     var dir = SystemSong.getLocalFolder(kind);
     var path = folder + dir;
     var pathLocal = folderLocal + dir;
