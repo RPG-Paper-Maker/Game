@@ -9,9 +9,12 @@
         http://rpg-paper-maker.com/index.php/eula.
 */
 
-const remote = require('electron').remote;
-const ipc = require('electron').ipcRenderer;
-const console = remote.getGlobal('console')
+const electron = require('electron')
+const remote = electron.remote;
+const ipc = electron.ipcRenderer;
+const console = remote.getGlobal('console');
+const Screen = remote.screen;
+const app = remote.app;
 
 window.onerror = function (msg, url, line, column, error)
 {
@@ -31,14 +34,10 @@ function Platform()
 
 }
 
-if (remote.process.argv[2] == '--dev')
-{
-    Platform.ROOT_DIRECTORY = ".";
-} else 
-{
-    Platform.ROOT_DIRECTORY = "./resources/app";
-}
-
+Platform.ROOT_DIRECTORY = app.getAppPath();
+Platform.screen = Screen.getPrimaryDisplay();
+Platform.screenWidth = Platform.screen.bounds.width;
+Platform.screenHeight = Platform.screen.bounds.height;
 Platform.canvas3D = document.getElementById('three-d');
 Platform.canvasHUD = document.getElementById('hud');
 Platform.canvasVideos = document.getElementById('video-container');
@@ -51,9 +50,9 @@ Platform.setWindowTitle = function(title)
     ipc.send('change-window-title', title);
 }
 
-Platform.setWindowSize = function(w, h)
+Platform.setWindowSize = function(w, h, f)
 {
-    ipc.send('change-window-size', w, h);
+    ipc.send('change-window-size', w, h, f);
 }
 
 Platform.quit = function()

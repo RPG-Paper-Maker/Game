@@ -57,16 +57,15 @@ DatasSystem.prototype = {
             h = json.sh;
             isScreenWindow = json.isw;
             if (!isScreenWindow) {
-                RPM.window.visibility = "FullScreen";
-                w = RPM.screenWidth;
-                h = RPM.screenHeight;
+                w = Platform.screenWidth;
+                h = Platform.screenHeight;
             }
-            Platform.setWindowSize(w, h);
-            
+            Platform.setWindowSize(w, h, !isScreenWindow);
             Platform.canvasHUD.width = w;
             Platform.canvasHUD.height = h;
             Platform.canvas3D.width = w;
             Platform.canvas3D.height = h;
+            Platform.canvasVideos.height = h;
             RPM.canvasWidth = w;
             RPM.canvasHeight = h;
             RPM.windowX = RPM.canvasWidth / RPM.SCREEN_X;
@@ -85,7 +84,7 @@ DatasSystem.prototype = {
                 json.mca, 45);
 
             // Path BR
-            RPM.PATH_BR = "file:///" + json.pathBR + "/";
+            RPM.PATH_BR = "file:///" + json.pathBR;
 
             // Hero beginning
             this.idMapStartHero = json.idMapHero;

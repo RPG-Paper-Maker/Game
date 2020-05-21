@@ -59,6 +59,7 @@ SystemTitleCommand.prototype.startNewGame = function() {
         Platform.canvasVideos.pause();
         Platform.canvasVideos.src = "";
     }
+    RPM.songsManager.stopAll();
 
     // Create a new game
     RPM.game = new Game();

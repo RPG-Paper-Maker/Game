@@ -26,6 +26,8 @@ function SceneTitleScreen() {
 
     SceneGame.call(this);
 
+    RPM.songsManager.stopAll();
+
     // Destroy pictures
     RPM.displayedPictures = [];
 

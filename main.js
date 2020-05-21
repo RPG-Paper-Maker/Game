@@ -11,17 +11,17 @@
 
 const { app, BrowserWindow, dialog } = require('electron')
 
-var ipc = require('electron').ipcMain;
+let ipc = require('electron').ipcMain;
+let window;
 
-function createWindow () {
-    let window;
-    
+function createWindow () {    
     window = new BrowserWindow({
         width: 640,
         height: 480,
         resizable: false,
         webPreferences: {
-            nodeIntegration: true
+            nodeIntegration: true,
+            enableRemoteModule: true
         }
     });
     //window.webContents.openDevTools();
@@ -43,9 +43,16 @@ function createWindow () {
     ipc.on('change-window-title', function(event, title) {
         window.setTitle(title);
     })
-    ipc.on('change-window-size', function(event, w, h) {
-        window.setContentSize(w, h);
-        window.center();
+    ipc.on('change-window-size', function(event, w, h, f) {
+        if (f)
+        {
+            window.setResizable(true);
+            window.setFullScreen(true)
+        } else
+        {
+            window.setContentSize(w, h);
+            window.center();
+        }
     })
     window.loadFile('index.html');
     window.removeMenu();
@@ -55,11 +62,8 @@ app.whenReady().then(createWindow)
 app.commandLine.appendSwitch('high-dpi-support', 'true');
 app.commandLine.appendSwitch('force-device-scale-factor', '1');
 
-// Mac OS keep active 
 app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') {
-        app.quit();
-    }
+    app.quit();
 })
 
 // Avoid warning deprecated default value
@@ -67,7 +71,7 @@ app.allowRendererProcessReuse = false;
 
 // Mac OS open new window if clicking on dock again
 app.on('activate', () => {
-    if (window === null) {
+    if (!window) {
         createWindow();
     }
 })

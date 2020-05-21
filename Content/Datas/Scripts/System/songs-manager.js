@@ -71,7 +71,10 @@ SongsManager.prototype = {
         case SongKind.BackgroundSound:
             break;
         }
-
+        if (this.currentSong[kind] !== null)
+        {
+            this.currentSong[kind].stop();
+        }
         let song = RPM.datasGame.songs.get(kind, id);
         if (song)
         {
@@ -112,6 +115,7 @@ SongsManager.prototype = {
             }
             else {
                 currentSong.stop();
+                this.currentSong[kind] = null;
             }
             return true;
         }
@@ -193,7 +197,7 @@ SongsManager.prototype = {
         }
         if (this.musicEffectStep === 1) 
         {
-            if (this.stopSong(SongKind.Music, currentState.timeStop, 0.5,
+            if (this.stopSong(SongKind.Music, currentState.timeStop, 0,
                               true))
             {
                 this.musicEffectStep++;
@@ -254,7 +258,7 @@ SongsManager.prototype = {
     stopMusic: function(time) {
         this.isMusicNone = true;
         this.stopSong(SongKind.Music, time, 0, false)
-        this.initializeProgressionMusic(this.currentSong[SongKind.Music] === 
+        this.initializeProgressionMusic(this.currentSong[SongKind.Music] ===  
             null ? 0 : this.currentSong[SongKind.Music].volume(), 0, 0, time);
     },
 
@@ -290,6 +294,26 @@ SongsManager.prototype = {
                     song.play();
                 }
             }
+        }
+    },
+
+    stopAll: function() 
+    {
+        if (this.currentSong[SongKind.Music] !== null)
+        {
+            this.currentSong[SongKind.Music].stop();
+            this.currentSong[SongKind.Music] = null;
+        }
+        if (this.currentSong[SongKind.BackgroundSound] !== null)
+        {
+            this.currentSong[SongKind.BackgroundSound].stop();
+            this.currentSong[SongKind.BackgroundSound] = null;
+        }
+        if (this.currentSong[SongKind.MusicEffect] !== null)
+        {
+            this.currentSong[SongKind.MusicEffect].stop();
+            this.currentSong[SongKind.MusicEffect] = null;
+            this.musicEffectStep = 0;
         }
     }
 }
