@@ -188,6 +188,7 @@ SceneMenuEquip.prototype = {
             item = RPM.game.items[i];
             if (item.k === gameItem.k && item.id === gameItem.id) {
                 item.remove(1);
+                break;
             }
         }
         if (prev) {
