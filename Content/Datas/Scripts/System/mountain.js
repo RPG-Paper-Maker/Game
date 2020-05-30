@@ -233,8 +233,8 @@ Mountain.prototype = {
         y = ((yKind * RPM.SQUARE_SIZE) + (yKind === Mountain.Y_BOT_OFFSET ?
             RPM.SQUARE_SIZE - faceHeight : 0) + yOffset) / height;
         h = faceHeight / height;
-        coefX = 0.1 / width;
-        coefY = 0.1 / height;
+        coefX = RPM.COEF_TEX / width;
+        coefY = RPM.COEF_TEX / height;
         x += coefX;
         y += coefY;
         w -= (coefX * 2);

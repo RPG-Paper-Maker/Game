@@ -986,6 +986,12 @@ MapObject.prototype = {
                     x = (this.frame >= RPM.FRAMES ? RPM.FRAMES - 1 : this.frame) * w;
                     y = this.orientation * h;
                 }
+                var coefX = RPM.COEF_TEX / textureWidth;
+                var coefY = RPM.COEF_TEX / textureHeight;
+                x += coefX;
+                y += coefY;
+                w -= (coefX * 2);
+                h -= (coefY * 2);
 
                 // Update geometry
                 this.mesh.geometry.faceVertexUvs[0][0][0].set(x, y);

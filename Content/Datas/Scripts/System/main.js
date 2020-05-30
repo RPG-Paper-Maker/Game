@@ -34,8 +34,13 @@ RPM.initialize = function()
 RPM.initializeGL = function()
 {
     // Create the renderer
-    RPM.renderer = new THREE.WebGLRenderer({antialias: false, alpha: true});
+    RPM.renderer = new THREE.WebGLRenderer({antialias: RPM.datasGame.system
+        .antialias, alpha: true});
     RPM.renderer.setSize(RPM.canvasWidth, RPM.canvasHeight);
+    if (RPM.datasGame.system.antialias)
+    {
+        RPM.renderer.setPixelRatio(2);
+    }
     Platform.canvas3D.appendChild(RPM.renderer.domElement);
 }
 
@@ -184,7 +189,6 @@ RPM.loop = function()
     if (RPM.datasGame && !RPM.datasGame.loaded) 
     {
         RPM.datasGame.updateLoadings();
-        RPM.renderer.clear();
         RPM.drawHUD(true);
         return;
     }
@@ -229,7 +233,6 @@ RPM.loop = function()
 //
 // -------------------------------------------------------
 
-RPM.initializeGL();
 RPM.initialize();
 
 // -------------------------------------------------------

@@ -77,8 +77,8 @@ Land.prototype = {
         geometry.faces.push(new THREE.Face3(j, j + 2, j + 3));
 
         // Texture
-        var coefX = 0.1 / width;
-        var coefY = 0.1 / height;
+        var coefX = RPM.COEF_TEX / width;
+        var coefY = RPM.COEF_TEX / height;
         x += coefX;
         y += coefY;
         w -= (coefX * 2);
